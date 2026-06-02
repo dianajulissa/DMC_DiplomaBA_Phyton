@@ -13,3 +13,5 @@ st.image("logo_python.png", width = 500)
 
 # st.sidebar.image("logo_dmc.png") # tamaño por defecto
 st.sidebar.image("logo_dmc.png", width = 100)
+
+st.write("Elaborado por: Diana Córdova")
