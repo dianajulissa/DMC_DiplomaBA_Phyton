@@ -7,5 +7,9 @@ st.title("Proyecto Final Diploma Business Analyst")
 st.sidebar.title("Parámetros")
 
 # Leer imágenes
-st.image("logo_python.png")
-st.sidebar.image("logo_dmc.png")
+
+# st.image("logo_python.png") # tamaño por defecto
+st.image("logo_python.png", width = 500)
+
+# st.sidebar.image("logo_dmc.png") # tamaño por defecto
+st.sidebar.image("logo_dmc.png", width = 100)
