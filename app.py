@@ -5,7 +5,7 @@ import streamlit as st
 import pandas as pd
 
 # Título Principal de la Aplicación
-st.title("Proyecto Diploma Business Analyst")
+st.title("Diploma Business Analyst")
 
 # Título en Barra Lateral
 st.sidebar.title("Parámetros")
@@ -19,7 +19,28 @@ st.sidebar.image("logo_dmc.png", width = 100)
 # Texto para visualizar el Autor del Proyecto
 st.write("Elaborado por: Diana Córdova")
 
-modulos = st.selectbox("Seleccione un Módulo", ["Home", "Carga y Perfil del Dataset", "Procesamiento de Datos", "Análisis visual"])
+
+# Despliega un Menú de Opciones en la Barra Lateral
+modulos = st.sidebar.selectbox("Seleccione un Módulo", ["Home", "Carga y Perfil del Dataset", "Procesamiento de Datos", "Análisis Visual"])
+
+if modulos == "Home":
+
+    st.write("Bienvenido a la Aplicación")
+
+    #if st.session_state.data is not None:
+    #    st.success(f"Dataset cargado: {st.session_state.nombre_archivo}")
+    #else:
+    #    st.info("Aún no se ha cargado ningún dataset.")
+
+elif modulos == "Carga y Perfil del Dataset":
+  st.write("Carga y Perfil del Dataset")
+  
+elif modulos == "Procesamiento de Datos":
+  st.write("Procesamiento de Datos")
+  
+elif modulos == "Análisis Visual":
+  st.write("Análisis Visual")
+
 
 
 # Permite la carga de un archivo por parte del usuario
