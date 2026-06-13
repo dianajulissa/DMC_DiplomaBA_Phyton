@@ -1,34 +1,26 @@
-### Clase del lunes 01/06
-
-# Importamos Streamlit para crear la aplicación web
+# Librería Streamlit para Crear la Aplicación Web
 import streamlit as st
 
-# Importamos Pandas para leer archivos CSV y Excel
+# Librería Pandas para Leer Archivos CSV y Excel
 import pandas as pd
 
-# Ingreso de Título Principal de la Aplicacion
+# Título Principal de la Aplicación
 st.title("Proyecto Diploma Business Analyst")
 
-# Ingreso de Título en Barra Lateral
+# Título en Barra Lateral
 st.sidebar.title("Parámetros")
 
-# Mostrando una imagen en la Página Principal
-# st.image("logo_python.png") # tamaño por defecto
-
-# Mostrando una imagen en la Página Principal con un ancho de 500 pixeles
+# Imagen en la Página Principal de ancho específicado
 st.image("logo_python.png", width = 500)
 
-# Mostrando una imagen en la Barra Lateral
-# st.sidebar.image("logo_dmc.png") # tamaño por defecto
-
-# Mostrando una imagen en la Barra Lateral con un ancho de 100 pixeles
+# Imagen en la Barra Lateral de ancho específicado
 st.sidebar.image("logo_dmc.png", width = 100)
 
-# Mostrando un texto con el Autor del Proyecto
+# Texto para visualizar el Autor del Proyecto
 st.write("Elaborado por: Diana Córdova")
 
 
-### Clase del miércoles 03/06
+
 
 # Permite la carga de un archivo por parte del usuario
 archivo = st.file_uploader("Cargue el archivo Excel o CSV")
