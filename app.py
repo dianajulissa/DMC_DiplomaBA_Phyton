@@ -19,7 +19,7 @@ st.sidebar.image("logo_dmc.png", width = 100)
 # Texto para visualizar el Autor del Proyecto
 st.write("Elaborado por: Diana Córdova")
 
-
+modulos = st.selectbox("Seleccione un Módulo", ["Home", "Carga y Perfil del Dataset", "Procesamiento de Datos", "Análisis visual"])
 
 
 # Permite la carga de un archivo por parte del usuario
