@@ -140,19 +140,19 @@ elif modulos == "Procesamiento de Datos":
 
     if st.session_state.data is not None:
     
-            data = st.session_state.data
-    
-            st.write("Dataset disponible para procesamiento:")
-            st.dataframe(data)
-    
-            st.write("Valores nulos por columna:")
-            st.write(data.isnull().sum())
-    
-        else:
-            st.warning(
-                "Primero debe cargar un dataset en el módulo "
-                "'Carga y Perfil del Dataset'."
-            )
+        data = st.session_state.data
+
+        st.write("Dataset disponible para procesamiento:")
+        st.dataframe(data)
+
+        st.write("Valores nulos por columna:")
+        st.write(data.isnull().sum())
+        
+    else:
+        st.warning(
+            "Primero debe cargar un dataset en el módulo "
+            "'Carga y Perfil del Dataset'."
+        )
 
 ###########################################################################################################################################
 
