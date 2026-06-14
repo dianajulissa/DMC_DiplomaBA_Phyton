@@ -33,9 +33,11 @@ st.sidebar.image("logo_dmc.png", width = 100)
 # Texto para visualizar el Autor del Proyecto
 st.write("Elaborado por: Diana Córdova")
 
+###########################################################################################################################################
 
 # Despliega un Menú de Opciones en la Barra Lateral
-modulos = st.sidebar.selectbox("Seleccione un Módulo", ["Home", "Carga y Perfil del Dataset", "Procesamiento de Datos", "Análisis Visual"])
+modulos = st.sidebar.selectbox("Seleccione un Módulo", 
+                               ["Home", "Carga y Perfil del Dataset", "Procesamiento de Datos", "Análisis Visual"])
 
 ###########################################################################################################################################
 
