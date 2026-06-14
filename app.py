@@ -58,13 +58,13 @@ if modulos == "Home":
     st.write("***- AI_Impact_on_Jobs_2030.csv***: ", 
              "Mercado laboral e impacto de la inteligencia artificial en empleos, salarios, habilidades y demanda futura.")
     
-    st.write("***sample_-_superstore.csv***: ",
+    st.write("***- sample_-_superstore.csv***: ",
             "Ventas de una tienda: pedidos, clientes, regiones, categorías, ventas, descuentos y utilidad.")
     
-    st.write("***synthetic_ecommerce_order_risk_dataset.csv***: ",
+    st.write("***- synthetic_ecommerce_order_risk_dataset.csv***: ",
             "Pedidos de e-commerce con variables de país, dispositivo, método de pago, valor de orden, entrega, devolución, fraude y etiqueta de riesgo.")
     
-    st.write("***Teen_Mental_Health_Dataset.csv***: ",
+    st.write("***- Teen_Mental_Health_Dataset.csv***: ",
             "Hábitos digitales, sueño, actividad física, interacción social y variables de bienestar en adolescentes.")
 
     # Validando la Carga del Dataset
@@ -81,7 +81,9 @@ elif modulos == "Carga y Perfil del Dataset":
     st.subheader("Carga y Perfil del Dataset")
     
     # Permite la carga de un archivo por parte del usuario
-    archivo = st.file_uploader("Cargue el archivo Excel o CSV")
+    archivo = st.file_uploader("Seleccione el Dataset a cargar (archivo Excel o CSV)",
+                              type = ["csv", "xlsx"]
+                                  )
 
     # Valida la Carga de un Archivo
     if archivo is not None :
@@ -112,8 +114,8 @@ elif modulos == "Carga y Perfil del Dataset":
             
             st.write("Formato no válido")
         
-    # Confirmamos que el archivo fue cargado
-    st.success("Archivo cargado correctamente")
+        # Confirmamos que el archivo fue cargado
+        st.success("Archivo cargado correctamente")
         
     # Si ya existe un dataset cargado, lo mostramos
     if st.session_state.data is not None:
@@ -180,7 +182,8 @@ elif modulos == "Procesamiento de Datos":
 ###########################################################################################################################################
 
 elif modulos == "Análisis Visual":
-  st.write("Análisis Visual")
+    
+    st.subheader("Análisis Visual")
 
 ###########################################################################################################################################
 
