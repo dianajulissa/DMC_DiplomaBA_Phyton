@@ -46,7 +46,7 @@ if modulos == "Home":
     st.subheader("Home")
     
     st.write("Presentación del Proyecto")
-    st.write("*Objetivo:* Construir una app en Streamlit capaz de procesar cualquiera de los cuatro datasets propuestos, 
+    st.write("**Objetivo:** Construir una app en Streamlit capaz de procesar cualquiera de los cuatro datasets propuestos, 
                 mostrando 4 módulos Homo, Carga y Perfil del Dataset, Procesamiento de Datos y Análisis Visual mediante gráficos interactivos.")
     st.write("Elaborado por: Diana Córdova")
 
