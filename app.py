@@ -31,7 +31,7 @@ st.image("logo_python.png", width = 200)
 st.sidebar.image("logo_dmc.png", width = 100)
 
 # Texto para visualizar el Autor del Proyecto
-st.write("Elaborado por: Diana Córdova")
+#st.write("Elaborado por: Diana Córdova")
 
 ###########################################################################################################################################
 
@@ -45,16 +45,16 @@ if modulos == "Home":
 
     st.subheader("Presentación del Proyecto")
     
-    st.write("**Objetivo:**")
+    st.write("**Objetivo**")
     st.write("Construir una aplicación web en Streamlit capaz de procesar cualquiera de los cuatro datasets propuestos y diferenciando 4 módulos:",
              "Home, Carga y Perfil del Dataset, Procesamiento de Datos y Análisis Visual mediante gráficos interactivos.")
     
     st.write("**Elaborado por**")
     st.write("Diana Córdova Rodríguez")
         
-    st.write("*Descripción de Datasets*")
+    st.write("**Descripción de Datasets**")
     
-    st.write("AI_Impact_on_Jobs_2030.csv", 
+    st.write("***AI_Impact_on_Jobs_2030.csv***", 
              "Mercado laboral e impacto de la inteligencia artificial en empleos, salarios, habilidades y demanda futura.")
     
     st.write("sample_-_superstore.csv",
