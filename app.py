@@ -49,7 +49,7 @@ if modulos == "Home":
     st.write("Construir una aplicación web en Streamlit capaz de procesar cualquiera de los cuatro datasets propuestos y diferenciando 4 módulos:",
              "Home, Carga y Perfil del Dataset, Procesamiento de Datos y Análisis Visual mediante gráficos interactivos.")
     
-    st.write("**Elaborado por**)
+    st.write("**Elaborado por**")
     st.write("Diana Córdova Rodríguez")
         
     st.write("*Descripción de Datasets*")
