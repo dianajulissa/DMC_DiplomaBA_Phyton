@@ -43,20 +43,36 @@ modulos = st.sidebar.selectbox("Seleccione un Módulo",
 
 if modulos == "Home":
 
-    st.subheader("Home")
+    st.subheader("Presentación del Proyecto")
     
-    st.write("Presentación del Proyecto")
     st.write("**Objetivo:**")
     st.write("Construir una aplicación web en Streamlit capaz de procesar cualquiera de los cuatro datasets propuestos y diferenciando 4 módulos:",
              "Home, Carga y Perfil del Dataset, Procesamiento de Datos y Análisis Visual mediante gráficos interactivos.")
-    st.write("Elaborado por: Diana Córdova")
+    
+    st.write("**Elaborado por**)
+    st.write("Diana Córdova Rodríguez")
+        
+    st.write("*Descripción de Datasets*")
+    
+    st.write("AI_Impact_on_Jobs_2030.csv", 
+             "Mercado laboral e impacto de la inteligencia artificial en empleos, salarios, habilidades y demanda futura.")
+    
+    st.write("sample_-_superstore.csv",
+            "Ventas de una tienda: pedidos, clientes, regiones, categorías, ventas, descuentos y utilidad.")
+    
+    st.write("synthetic_ecommerce_order_risk_dataset.csv",
+            "Pedidos de e-commerce con variables de país, dispositivo, método de pago, valor de orden, entrega, devolución, fraude y etiqueta de riesgo.")
+    
+    st.write("Teen_Mental_Health_Dataset.csv",
+            "Hábitos digitales, sueño, actividad física, interacción social y variables de bienestar en adolescentes.")
 
     # Validando la Carga del Dataset
     if st.session_state.data is not None:
         st.success(f"Dataset cargado: {st.session_state.nombre_archivo}")
         
     else:
-        st.info("Aún no se ha cargado ningún dataset. Diríjase al Módulo 'Carga y Perfil del Dataset'")
+        st.info("Aún no se ha cargado ningún dataset", 
+                "Diríjase al Módulo 'Carga y Perfil del Dataset'")
 
 ###########################################################################################################################################
 
