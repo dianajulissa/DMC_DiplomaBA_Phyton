@@ -55,7 +55,7 @@ if modulos == "Home":
         
     st.write("**Descripción de Datasets**")
     
-    st.write("**- *AI_Impact_on_Jobs_2030.csv*: **", 
+    st.write("***- AI_Impact_on_Jobs_2030.csv***: ", 
              "Mercado laboral e impacto de la inteligencia artificial en empleos, salarios, habilidades y demanda futura.")
     
     st.write("***sample_-_superstore.csv***: ",
