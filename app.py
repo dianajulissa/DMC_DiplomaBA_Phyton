@@ -127,16 +127,9 @@ elif modulos == "Carga y Perfil del Dataset":
             st.session_state.data = None
             st.session_state.nombre_archivo = None
             st.rerun()
-
-    else:
-        st.write("Por favor cargue su archivo.")
-
-
-    
     
     # Si el usuario no ha cargado ningún archivo, mostramos un mensaje
     else :
-
         st.write("Por favor cargue su archivo")
 
 ###########################################################################################################################################
