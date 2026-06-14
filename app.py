@@ -8,8 +8,18 @@ import pandas as pd
 
 ###########################################################################################################################################
 
+# Almacenamiento del Dataset Cargado
+if "data" not in st.session_state:
+    st.session_state.data = None
+
+# Almacenamiento del Nombre del Archivo Cargado
+if "nombre_archivo" not in st.session_state:
+    st.session_state.nombre_archivo = None
+    
+###########################################################################################################################################
+
 # Título Principal de la Aplicación
-st.title("Diploma Business Analyst")
+st.title("Diploma Business Analyst - Python")
 
 # Título en Barra Lateral
 st.sidebar.title("Parámetros")
@@ -34,10 +44,12 @@ if modulos == "Home":
     st.write("Bienvenido a la Aplicación")
     st.write("Elaborado por: Diana Córdova")
 
-    #if st.session_state.data is not None:
-    #    st.success(f"Dataset cargado: {st.session_state.nombre_archivo}")
-    #else:
-    #    st.info("Aún no se ha cargado ningún dataset.")
+    # Validando la Carga del Dataset
+    if st.session_state.data is not None:
+        st.success(f"Dataset cargado: {st.session_state.nombre_archivo}")
+        
+    else:
+        st.info("Aún no se ha cargado ningún dataset.")
 
 ###########################################################################################################################################
 
