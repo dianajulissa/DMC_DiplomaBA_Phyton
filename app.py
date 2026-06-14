@@ -43,7 +43,11 @@ modulos = st.sidebar.selectbox("Seleccione un Módulo",
 
 if modulos == "Home":
 
-    st.write("Bienvenido a la Aplicación")
+    st.subheader("Home")
+    
+    st.write("Presentación del Proyecto")
+    st.write("*Objetivo:* Construir una app en Streamlit capaz de procesar cualquiera de los cuatro datasets propuestos, 
+                mostrando 4 módulos Homo, Carga y Perfil del Dataset, Procesamiento de Datos y Análisis Visual mediante gráficos interactivos.")
     st.write("Elaborado por: Diana Córdova")
 
     # Validando la Carga del Dataset
@@ -51,7 +55,7 @@ if modulos == "Home":
         st.success(f"Dataset cargado: {st.session_state.nombre_archivo}")
         
     else:
-        st.info("Aún no se ha cargado ningún dataset.")
+        st.info("Aún no se ha cargado ningún dataset. Diríjase al Módulo 'Carga y Perfil del Dataset'")
 
 ###########################################################################################################################################
 
