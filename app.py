@@ -63,29 +63,77 @@ elif modulos == "Carga y Perfil del Dataset":
     # Valida la Carga de un Archivo
     if archivo is not None :
 
+        # Guardamos el nombre del archivo en session_state
+        st.session_state.nombre_archivo = archivo.name
+
         # Verificando que el archivo cargado tiene extensión .csv
         if archivo.name.endswith(".csv"):
             
-            # Lee el archivo CSV y lo guarda en un DataFrame
-            data = pd.read_csv(archivo)
+            # Lee el archivo CSV y lo guarda en un session_state
+            st.session_state.data = pd.read_csv(archivo)
             
             # Muestra el DataFrame en la aplicación
-            st.write(data)
+            #st.write(data)
             
         # Verificando que el archivo cargado tiene extensión .xlsx
         elif archivo.name.endswith(".xlsx"):
             
-            # Lee el archivo Excel y lo guarda en un DataFrame
-            data = pd.read_excel(archivo)
+            # Lee el archivo Excel y lo guarda en un session_state
+            st.session_state.data = pd.read_excel(archivo)
             
             # Muestra el DataFrame en la aplicación
-            st.write(data)
+            #st.write(data)
             
         # Si el archivo no es CSV ni Excel, mostramos un mensaje de error
         else:
             
             st.write("Formato no válido")
         
+    # Confirmamos que el archivo fue cargado
+    st.success("Archivo cargado correctamente")
+        
+    # Si ya existe un dataset cargado, lo mostramos
+    if st.session_state.data is not None:
+
+        st.write(f"Archivo actual: **{st.session_state.nombre_archivo}**")
+
+        st.subheader("Vista previa del dataset")
+        st.dataframe(st.session_state.data)
+
+        st.subheader("Perfil básico del dataset")
+
+        # Número de filas y columnas
+        st.write("Filas:", st.session_state.data.shape[0])
+        st.write("Columnas:", st.session_state.data.shape[1])
+
+        # Nombres de columnas
+        st.write("Columnas del dataset:")
+        st.write(st.session_state.data.columns.tolist())
+
+        # Tipos de datos
+        st.write("Tipos de datos:")
+        st.write(st.session_state.data.dtypes)
+
+        # Valores nulos
+        st.write("Valores nulos por columna:")
+        st.write(st.session_state.data.isnull().sum())
+
+        # Estadística descriptiva
+        st.write("Estadística descriptiva:")
+        st.write(st.session_state.data.describe())
+
+        # Botón para eliminar el dataset cargado
+        if st.button("Eliminar dataset cargado"):
+            st.session_state.data = None
+            st.session_state.nombre_archivo = None
+            st.rerun()
+
+    else:
+        st.write("Por favor cargue su archivo.")
+
+
+    
+    
     # Si el usuario no ha cargado ningún archivo, mostramos un mensaje
     else :
 
@@ -94,7 +142,24 @@ elif modulos == "Carga y Perfil del Dataset":
 ###########################################################################################################################################
 
 elif modulos == "Procesamiento de Datos":
-  st.write("Procesamiento de Datos")
+    
+    st.subheader("Procesamiento de Datos")
+
+    if st.session_state.data is not None:
+    
+            data = st.session_state.data
+    
+            st.write("Dataset disponible para procesamiento:")
+            st.dataframe(data)
+    
+            st.write("Valores nulos por columna:")
+            st.write(data.isnull().sum())
+    
+        else:
+            st.warning(
+                "Primero debe cargar un dataset en el módulo "
+                "'Carga y Perfil del Dataset'."
+            )
 
 ###########################################################################################################################################
 
