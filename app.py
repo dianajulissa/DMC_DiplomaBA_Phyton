@@ -19,13 +19,13 @@ if "nombre_archivo" not in st.session_state:
 ###########################################################################################################################################
 
 # Título Principal de la Aplicación
-st.title("Diploma Business Analyst - Python")
+st.title("Diploma Business Analyst")
 
 # Título en Barra Lateral
 st.sidebar.title("Parámetros")
 
 # Imagen en la Página Principal de ancho específicado
-st.image("logo_python.png", width = 500)
+st.image("logo_python.png", width = 200)
 
 # Imagen en la Barra Lateral de ancho específicado
 st.sidebar.image("logo_dmc.png", width = 100)
