@@ -71,7 +71,7 @@ if modulos == "Home":
         st.success(f"Dataset Cargado: {st.session_state.nombre_archivo}")
         
     else:
-        st.info("Aún no se ha cargado ningún dataset. \n Diríjase al Módulo **Carga y Perfil del Dataset**")
+        st.info("Aún no se ha cargado ningún dataset.  \n Diríjase al Módulo **Carga y Perfil del Dataset**")
 
 ###########################################################################################################################################
 
