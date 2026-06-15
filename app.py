@@ -214,7 +214,8 @@ elif modulos == "Procesamiento de Datos":
                         st.write(pd.to_datetime(st.session_state.data[col]))
                         
                         st.session_state.data[col] = pd.to_datetime(st.session_state.data[col], errors='ignore')
-                        st.write(st.session_state.data[col])
+                        #st.write(st.session_state.data[col])
+                        st.write(st.session_state.data)
                 
                 except:
                     pass
