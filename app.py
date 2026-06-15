@@ -122,21 +122,23 @@ elif modulos == "Carga y Perfil del Dataset":
 
         st.write(f"Archivo actual: **{st.session_state.nombre_archivo}**")
 
-        st.subheader("Vista previa del dataset")
+        #st.subheader("Vista Previa del Dataset")
+        st.write("**Vista Previa del Dataset**")
         st.dataframe(st.session_state.data)
 
-        st.subheader("Perfil básico del dataset")
+        #st.subheader("Perfil Básico del Dataset")
+        st.write("**Dimensiones del Dataset**")
 
         # Número de filas y columnas
         st.write("Filas:", st.session_state.data.shape[0])
         st.write("Columnas:", st.session_state.data.shape[1])
 
         # Nombres de columnas
-        st.write("Columnas del dataset:")
+        st.write("**Columnas del dataset**")
         st.write(st.session_state.data.columns.tolist())
 
         # Tipos de datos
-        st.write("Tipos de datos:")
+        st.write("**Tipos de datos**")
         st.write(st.session_state.data.dtypes)
 
         # Valores nulos
