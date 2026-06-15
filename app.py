@@ -188,7 +188,7 @@ elif modulos == "Procesamiento de Datos":
         data = st.session_state.data
 
         st.write("Dataset disponible para el procesamiento:")
-        #st.dataframe(data)
+        st.dataframe(data)
 
         #st.write("Valores nulos por columna:")
         #st.write(data.isnull().sum())
@@ -206,7 +206,9 @@ elif modulos == "Procesamiento de Datos":
                         st.session_state.data[col] = pd.to_datetime(st.session_state.data[col], errors='ignore')
                 except:
                     pass
-    
+
+        st.dataframe(st.session_state.data)
+        
         # Clasificar según el tipo de dato real
         num_cols  = st.session_state.data.select_dtypes(include=[np.number]).columns.tolist()
         date_cols = st.session_state.data.select_dtypes(include=['datetime64', 'datetime']).columns.tolist()
