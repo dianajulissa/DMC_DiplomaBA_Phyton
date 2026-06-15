@@ -211,11 +211,12 @@ elif modulos == "Procesamiento de Datos":
                     # Verificación rápida si parece fecha antes de convertir
                     if st.session_state.data[col].astype(str).str.contains(r'\d{4}|\d{2}[-/]\d{2}').any():
                         st.write("entro2")
-                        st.write(pd.to_datetime(st.session_state.data[col]))
+                        #st.write(pd.to_datetime(st.session_state.data[col]))
                         
                         st.session_state.data[col] = pd.to_datetime(st.session_state.data[col], errors='ignore')
                         #st.write(st.session_state.data[col])
-                        st.write(st.session_state.data)
+                        #st.write(st.session_state.data)
+                        st.write(st.session_state.data[col].dtype)
                 
                 except:
                     pass
