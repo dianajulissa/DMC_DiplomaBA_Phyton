@@ -472,20 +472,19 @@ elif modulos == "Análisis Visual":
             })
             
             st.dataframe(resumen_columnas, use_container_width=True)
+
+            if duplicados_totales > 0:
+                st.error(f"Se encontraron **{duplicados_totales}** registros idénticos.")
+            else:
+                st.success("No se detectaron filas duplicadas en el archivo.")
+
+            columnas_con_nulos = data.columns[data.isnull().any()].tolist()
             
-            col_alert1, col_alert2 = st.columns(2)
-            with col_alert1:
-                if duplicados_totales > 0:
-                    st.error(f"Se encontraron **{duplicados_totales}** registros idénticos.")
-                else:
-                    st.success("No se detectaron filas duplicadas en el archivo.")
-            with col_alert2:
-                columnas_con_nulos = data.columns[data.isnull().any()].tolist()
-                if columnas_con_nulos:
-                    st.warning(f"Columnas con datos faltantes: {', '.join([f'`{c}`' for c in columnas_con_nulos])}")
-                else:
-                    st.success("¡Excelente! Ninguna columna contiene valores nulos.")
-            
+            if columnas_con_nulos:
+                st.warning(f"Columnas con datos faltantes: {', '.join([f'`{c}`' for c in columnas_con_nulos])}")
+            else:
+                st.success("¡Excelente! Ninguna columna contiene valores nulos.")
+                
             # Imprime una línea en la pantalla
             st.markdown("---")
             
