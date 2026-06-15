@@ -480,7 +480,7 @@ elif modulos == "Análisis Visual":
                 else:
                     st.success("No se detectaron filas duplicadas en el archivo.")
             with col_alert2:
-                columnas_con_nulos = df.columns[df.isnull().any()].tolist()
+                columnas_con_nulos = data.columns[data.isnull().any()].tolist()
                 if columnas_con_nulos:
                     st.warning(f"Columnas con datos faltantes: {', '.join([f'`{c}`' for c in columnas_con_nulos])}")
                 else:
