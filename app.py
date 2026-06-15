@@ -97,8 +97,7 @@ if modulos == "Home":
         st.success(f"✅ Dataset Cargado: {st.session_state.nombre_archivo}")
         
     else:
-        st.info("""🚨 Aún no se ha cargado ningún dataset.  \n 
-                    Diríjase al Módulo **Carga y Perfil del Dataset**""")
+        st.info("""🚨 Aún no se ha cargado ningún dataset. Diríjase al Módulo **Carga y Perfil del Dataset**""")
 
 ###########################################################################################################################################
 # MODULO: CARGA Y PERFIL DE DATOS
@@ -198,12 +197,13 @@ elif modulos == "Carga y Perfil del Dataset":
             st.session_state.nombre_archivo = None
             st.rerun()
             st.write("Dataset eliminado")
+
+        st.info("Diríjase al Módulo **Procesamiento de Datos** para procesar el dataset cargado.")
     
     # Si el usuario no ha cargado ningún archivo, mostramos un mensaje
     else :
         #st.write("Por favor cargue su archivo")
-        st.info("""🚨 Aún no se ha cargado ningún dataset.  \n 
-                    Diríjase al Módulo **Carga y Perfil del Dataset**""")
+        st.info("🚨 Aún no se ha cargado ningún dataset. Diríjase al Módulo **Carga y Perfil del Dataset**.")
 
 ###########################################################################################################################################
 # MODULO: PROCESAMIENTO DE DATOS
@@ -214,19 +214,24 @@ elif modulos == "Procesamiento de Datos":
     # Título del Módulo
     st.subheader("Procesamiento de Datos")
 
+    # Validando que la carga del dataset
     if st.session_state.data is not None:
+
+        st.success(f"✅ Dataset Cargado:  \n {st.session_state.nombre_archivo}")
     
         data = st.session_state.data
-
+        
         st.write("Dataset disponible para el procesamiento:")
         st.dataframe(data)
 
         #st.write("Valores nulos por columna:")
         #st.write(data.isnull().sum())
-    
-        # DETECCION DE VARIABLES: Numéricas, fechas, categóricas
+
+        #----------------------------------------------------------------------------------------------------------------------------------
+        # DETECCION DE TIPO DE VARIABLES: Numéricas, fechas, categóricas
+        #----------------------------------------------------------------------------------------------------------------------------------
         
-        st.header("**Detección de variables**")
+        st.write("**Detección de variables**")
         
         # Conversión automática de las columnas de texto que parecen fechas
         for col in st.session_state.data.columns:
@@ -254,7 +259,7 @@ elif modulos == "Procesamiento de Datos":
         st.dataframe(st.session_state.data)
 
         # Columnas y Tipo de Datos Convertidos
-        st.write("**Columnas y Tipos de datos**")
+        st.write("**Columnas y Tipos de Datos Después de Conversión**")
         df_info = pd.DataFrame({
                                     'Tipo de Dato'    : st.session_state.data.dtypes.astype(str),
                                     'Valores No Nulos': st.session_state.data.count(),
@@ -266,6 +271,9 @@ elif modulos == "Procesamiento de Datos":
         num_cols  = st.session_state.data.select_dtypes(include=[np.number]).columns.tolist()
         date_cols = st.session_state.data.select_dtypes(include=['datetime64', 'datetime']).columns.tolist()
         cat_cols  = st.session_state.data.select_dtypes(include=['object', 'category']).columns.tolist()
+
+        # Variables Numéricas
+        st.write(num_cols if num_cols else "Ninguna")
         
         # Mostrar clasificación en columnas visuales
         c1, c2, c3 = st.columns(3)
