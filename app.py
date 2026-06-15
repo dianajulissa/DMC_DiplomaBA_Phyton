@@ -152,16 +152,16 @@ elif modulos == "Carga y Perfil del Dataset":
                                 })
         st.write(df_info)
     
-        # Valores nulos
-        st.write("**Valores nulos por columna:**")
-        st.write(st.session_state.data.isnull().sum())
+        # Valores Nulos
+        #st.write("**Valores nulos por columna:**")
+        #st.write(st.session_state.data.isnull().sum())
 
-        # Estadística descriptiva
+        # Estadística Descriptiva
         st.write("**Resumen Inicial - Estadística Descriptiva:**")
         st.write(st.session_state.data.describe())
         #st.write(st.session_state.data.describe(include='all'))
 
-        # Botón para eliminar el dataset cargado
+        # Botón para Eliminar el Dataset Cargado
         if st.button("Eliminar Dataset Cargado"):
             
             st.session_state.data           = None
@@ -185,11 +185,42 @@ elif modulos == "Procesamiento de Datos":
         data = st.session_state.data
 
         st.write("Dataset disponible para el procesamiento:")
-        st.dataframe(data)
+        #st.dataframe(data)
 
-        st.write("Valores nulos por columna:")
-        st.write(data.isnull().sum())
+        #st.write("Valores nulos por columna:")
+        #st.write(data.isnull().sum())
+    
+        # DETECCION DE VARIABLES: Numéricas, fechas, categóricas
         
+        st.header("**Detección de variables**")
+        
+        # Conversión automática de las columnas de texto que parecen fechas
+        for col in st.session_state.data.columns:
+            if st.session_state.data[col].dtype == 'object':
+                try:
+                    # Verificación rápida si parece fecha antes de convertir
+                    if st.session_state.data[col].astype(str).str.contains(r'\d{4}|\d{2}[-/]\d{2}').any():
+                        st.session_state.data[col] = pd.to_datetime(df[col], errors='ignore')
+                except:
+                    pass
+    
+        # Clasificar según el tipo de dato real
+        num_cols  = st.session_state.data.select_dtypes(include=[np.number]).columns.tolist()
+        date_cols = st.session_state.data.select_dtypes(include=['datetime64', 'datetime']).columns.tolist()
+        cat_cols  = st.session_state.data.select_dtypes(include=['object', 'category']).columns.tolist()
+        
+        # Mostrar clasificación en columnas visuales
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            st.subheader("Variables Numéricas")
+            st.write(num_cols if num_cols else "Ninguna")
+        with c2:
+            st.subheader("Variables Tipo Fecha")
+            st.write(date_cols if date_cols else "Ninguna")
+        with c3:
+            st.subheader("Variables Categóricas")
+            st.write(cat_cols if cat_cols else "Ninguna")
+            
     else:
         st.warning(
             "Primero debe cargar un dataset.  \n"
