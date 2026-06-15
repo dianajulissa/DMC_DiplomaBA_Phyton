@@ -120,7 +120,9 @@ elif modulos == "Carga y Perfil del Dataset":
     # Si ya existe un dataset cargado, lo mostramos
     if st.session_state.data is not None:
 
-        st.write(f"Archivo actual: **{st.session_state.nombre_archivo}**")
+        #st.write(f"Archivo actual: **{st.session_state.nombre_archivo}**")
+        st.write("**Archivo Cargado **")
+        st.write({st.session_state.nombre_archivo})
 
         #st.subheader("Vista Previa del Dataset")
         st.write("**Vista Previa del Dataset**")
