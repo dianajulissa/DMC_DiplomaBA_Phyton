@@ -203,7 +203,8 @@ elif modulos == "Procesamiento de Datos":
             st.write(col)
             st.write(st.session_state.data[col].dtype)
             
-            if st.session_state.data[col].dtype == 'object':
+            #if st.session_state.data[col].dtype == 'object':
+            if st.session_state.data[col].dtype == 'str':
                 
                 try:
                     # Verificación rápida si parece fecha antes de convertir
