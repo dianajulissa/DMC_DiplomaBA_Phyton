@@ -273,6 +273,7 @@ elif modulos == "Procesamiento de Datos":
         cat_cols  = st.session_state.data.select_dtypes(include=['object', 'category']).columns.tolist()
 
         # Variables Numéricas
+        st.write("**Variables Numéricas**")
         st.write(num_cols if num_cols else "Ninguna")
         
         # Mostrar clasificación en columnas visuales
