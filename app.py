@@ -489,6 +489,22 @@ elif modulos == "Análisis Visual":
             st.markdown("---")
             
             st.write("*Resumen Estadístico**")
+
+            # Resumen Estadístico de Variables Numéricas
+            st.subheader("Análisis Descriptivo Numérico")
+            columnas_numericas = data.select_dtypes(include=[np.number]).columns
+            
+            if len(columnas_numericas) > 0:
+                st.dataframe(data[columnas_numericas].describe(), use_container_width=True)
+            else:
+                st.info("El dataset no contiene variables de tipo numérico.")
+                
+            # Resumen Estadístico de Variables de Texto/Categóricas
+            columnas_texto = data.select_dtypes(include=['object', 'category']).columns
+            
+            if len(columnas_texto) > 0:
+                st.subheader("🔤 Análisis Descriptivo Categórico (Texto)")
+                st.dataframe(data[columnas_texto].describe(include='all'), use_container_width=True)            
             
         #----------------------------------------------------------------------------------------------------------------------------------
         # Análisis Univariado
