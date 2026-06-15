@@ -488,7 +488,7 @@ elif modulos == "Análisis Visual":
             # Imprime una línea en la pantalla
             st.markdown("---")
             
-            st.write("*Resumen Estadístico**")
+            st.write("**Resumen Estadístico**")
 
             # Resumen Estadístico de Variables Numéricas
             st.subheader("Análisis Descriptivo Numérico")
@@ -503,7 +503,7 @@ elif modulos == "Análisis Visual":
             columnas_texto = data.select_dtypes(include=['object', 'category']).columns
             
             if len(columnas_texto) > 0:
-                st.subheader("🔤 Análisis Descriptivo Categórico (Texto)")
+                st.subheader("Análisis Descriptivo Categórico (Texto)")
                 st.dataframe(data[columnas_texto].describe(include='all'), use_container_width=True)            
             
         #----------------------------------------------------------------------------------------------------------------------------------
