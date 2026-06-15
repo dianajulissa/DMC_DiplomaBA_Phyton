@@ -175,8 +175,8 @@ elif modulos == "Procesamiento de Datos":
         
     else:
         st.warning(
-            "Primero debe cargar un dataset en el módulo "
-            "'Carga y Perfil del Dataset'."
+            "Primero debe cargar un dataset.  \n"
+            "Diríjase al Módulo **Carga y Perfil del Dataset**."
         )
 
 ###########################################################################################################################################
@@ -184,6 +184,28 @@ elif modulos == "Procesamiento de Datos":
 elif modulos == "Análisis Visual":
     
     st.subheader("Análisis Visual")
+
+    if st.session_state.data is not None:
+    
+        data = st.session_state.data
+
+        st.write("Dataset disponible para Análisis Visual:")
+        st.dataframe(data)
+        
+    else:
+        st.warning(
+            "Primero debe cargar un dataset.  \n"
+            "Diríjase al Módulo **Carga y Perfil del Dataset**."
+        )
+
+        lista_columna_numerica = data.select_dtypes(include = "number").columns.tolist()
+
+
+    variable_numerica        = st.selectbox("Selecione la columna númerica", lista_columna_numerica)
+
+    lista_columna_categorica = data.select_dtypes(include=["object", "category"]).columns.tolist()
+
+    variable_categorica      = st.selectbox("Seleccione la columna categórica",lista_columna_categorica)
 
 ###########################################################################################################################################
 
