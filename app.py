@@ -167,7 +167,7 @@ elif modulos == "Procesamiento de Datos":
     
         data = st.session_state.data
 
-        st.write("Dataset disponible para procesamiento:")
+        st.write("Dataset disponible para el procesamiento:")
         st.dataframe(data)
 
         st.write("Valores nulos por columna:")
@@ -197,15 +197,14 @@ elif modulos == "Análisis Visual":
             "Primero debe cargar un dataset.  \n"
             "Diríjase al Módulo **Carga y Perfil del Dataset**."
         )
-
-        lista_columna_numerica = data.select_dtypes(include = "number").columns.tolist()
-
-
+    
+    lista_columna_numerica   = data.select_dtypes(include = "number").columns.tolist()
+    
     variable_numerica        = st.selectbox("Selecione la columna númerica", lista_columna_numerica)
-
+    
     lista_columna_categorica = data.select_dtypes(include=["object", "category"]).columns.tolist()
-
-    variable_categorica      = st.selectbox("Seleccione la columna categórica",lista_columna_categorica)
+    
+    variable_categorica      = st.selectbox("Seleccione la columna categórica", lista_columna_categorica)
 
 ###########################################################################################################################################
 
