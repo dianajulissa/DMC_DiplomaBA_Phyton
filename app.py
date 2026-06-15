@@ -436,25 +436,29 @@ elif modulos == "Análisis Visual":
             with ind2:
                 st.metric("Total de Variables (Columnas)", columnas)
             with ind3:
-                # [AQUÍ ENCUENTRAS LA MÉTRICA DE NULOS]
+                # Métricas para Nulos
                 st.metric("Valores Nulos (Celdas)", f"{nulos_totales:,}", 
                           delta=f"{porcentaje_nulos:.2f}% del total", delta_color="inverse")
             with ind4:
-                # [AQUÍ ENCUENTRAS LA MÉTRICA DE DUPLICADOS]
+                # Métricas para Duplicados
                 st.metric("Filas Duplicadas", f"{duplicados_totales:,}", 
                           delta="Acción requerida" if duplicados_totales > 0 else "Limpio", 
                           delta_color="inverse" if duplicados_totales > 0 else "normal")
-        
+
+            -- Imprime una línea en la pantalla
             st.markdown("---")
         
-            # Creación de pestañas para organizar la información
-            st.header("2. 🔍 Inspección Detallada")
-            tab_datos, tab_estructura, tab_estadistica = st.tabs([
-                "👀 Vista Previa y Dimensiones", 
-                "🔤 Tipos de Datos y Calidad", 
-                "📈 Resumen Estadístico"
-            ])
             st.write("**Tabla de Dimensiones**")
+
+            df_dimensiones = pd.DataFrame({
+                "Métrica de Estructura": ["Filas (Registros)", "Columnas (Variables)", "Total de Celdas Evaluadas"],
+                "Cantidad": [filas, columnas, celdas_totales]
+            })
+            st.dataframe(df_dimensiones, hide_index=True, use_container_width=True)
+            
+            st.subheader("Visualizando los 10 Primeros Registros")
+            st.dataframe(data.head(10), use_container_width=True)
+        
             st.write("**Tipos de Datos**")
             st.write("**Nulos**")
             st.write("*Resumen Estadístico**")
