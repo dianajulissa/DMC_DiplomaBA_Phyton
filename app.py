@@ -428,7 +428,32 @@ elif modulos == "Análisis Visual":
             duplicados_totales = data.duplicated().sum()
             celdas_totales     = data.size
             porcentaje_nulos   = (nulos_totales / celdas_totales) * 100 if celdas_totales > 0 else 0
-    
+
+            # Renderizado en tarjetas de Streamlit (Métricas de lectura rápida)
+            ind1, ind2, ind3, ind4 = st.columns(4)
+            with ind1:
+                st.metric("Total de Registros (Filas)", f"{filas:,}")
+            with ind2:
+                st.metric("Total de Variables (Columnas)", columnas)
+            with ind3:
+                # [AQUÍ ENCUENTRAS LA MÉTRICA DE NULOS]
+                st.metric("Valores Nulos (Celdas)", f"{nulos_totales:,}", 
+                          delta=f"{porcentaje_nulos:.2f}% del total", delta_color="inverse")
+            with ind4:
+                # [AQUÍ ENCUENTRAS LA MÉTRICA DE DUPLICADOS]
+                st.metric("Filas Duplicadas", f"{duplicados_totales:,}", 
+                          delta="Acción requerida" if duplicados_totales > 0 else "Limpio", 
+                          delta_color="inverse" if duplicados_totales > 0 else "normal")
+        
+            st.markdown("---")
+        
+            # Creación de pestañas para organizar la información
+            st.header("2. 🔍 Inspección Detallada")
+            tab_datos, tab_estructura, tab_estadistica = st.tabs([
+                "👀 Vista Previa y Dimensiones", 
+                "🔤 Tipos de Datos y Calidad", 
+                "📈 Resumen Estadístico"
+            ])
             st.write("**Tabla de Dimensiones**")
             st.write("**Tipos de Datos**")
             st.write("**Nulos**")
