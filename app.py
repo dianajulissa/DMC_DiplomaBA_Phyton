@@ -132,37 +132,37 @@ elif modulos == "Carga y Perfil del Dataset":
         st.write("**Dimensiones del Dataset**")
 
         # Número de filas y columnas
-        st.write("- Filas:", st.session_state.data.shape[0])
-        st.write("- Columnas:", st.session_state.data.shape[1])
+        st.write("- Número de Filas:", st.session_state.data.shape[0])
+        st.write("- Número de Columnas:", st.session_state.data.shape[1])
 
         # Nombres de columnas
         st.write("**Columnas del Dataset**")
         st.write(st.session_state.data.columns.tolist())
 
         # Tipos de datos
-        st.write("**Tipos de datos**")
-        st.write(st.session_state.data.dtypes)
+        #st.write("**Tipos de datos**")
+        #st.write(st.session_state.data.dtypes)
 
         # Columnas y Tipo de Datos
+        st.write("**Columnas y Tipos de datos**")
         df_info = pd.DataFrame({
-                                    'Tipo de Dato': st.session_state.data.dtypes.astype(str),
+                                    'Tipo de Dato'    : st.session_state.data.dtypes.astype(str),
                                     'Valores No Nulos': st.session_state.data.count(),
-                                    'Valores Nulos': st.session_state.data.isnull().sum()
+                                    'Valores Nulos'   : st.session_state.data.isnull().sum()
                                 })
         st.write(df_info)
     
         # Valores nulos
-        st.write("Valores nulos por columna:")
+        st.write("**Valores nulos por columna:**")
         st.write(st.session_state.data.isnull().sum())
 
         # Estadística descriptiva
-        st.write("Estadística descriptiva:")
+        st.write("**Resumen Inicial - Estadística Descriptiva:**")
         st.write(st.session_state.data.describe())
-
-        st.write(st.session_state.data.describe(include='all'))
+        #st.write(st.session_state.data.describe(include='all'))
 
         # Botón para eliminar el dataset cargado
-        if st.button("Eliminar dataset cargado"):
+        if st.button("Eliminar Dataset Cargado"):
             
             st.session_state.data           = None
             st.session_state.nombre_archivo = None
@@ -171,7 +171,8 @@ elif modulos == "Carga y Perfil del Dataset":
     
     # Si el usuario no ha cargado ningún archivo, mostramos un mensaje
     else :
-        st.write("Por favor cargue su archivo")
+        #st.write("Por favor cargue su archivo")
+        st.info("Aún no se ha cargado ningún dataset.  \n Diríjase al Módulo **Carga y Perfil del Dataset**")
 
 ###########################################################################################################################################
 
