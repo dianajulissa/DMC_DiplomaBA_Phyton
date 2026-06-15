@@ -470,15 +470,21 @@ elif modulos == "Análisis Visual":
                 "Valores Nulos (NaN)": data.isnull().sum(),           # <- Muestra Nulos detallados
                 "% de Nulos por Columna": (data.isnull().sum() / len(data) * 100).round(2).astype(str) + "%"
             })
+            
             st.dataframe(resumen_columnas, use_container_width=True)
-
-            resumen_columnas = pd.DataFrame({
-                "Tipo de Dato": df.dtypes.astype(str),              # <- Muestra Tipos de Datos
-                "Valores No Nulos": df.count(),
-                "Valores Nulos (NaN)": df.isnull().sum(),           # <- Muestra Nulos detallados
-                "% de Nulos por Columna": (df.isnull().sum() / len(df) * 100).round(2).astype(str) + "%"
-            })
-            st.dataframe(resumen_columnas, use_container_width=True)
+            
+            col_alert1, col_alert2 = st.columns(2)
+            with col_alert1:
+                if duplicados_totales > 0:
+                    st.error(f"Se encontraron **{duplicados_totales}** registros idénticos.")
+                else:
+                    st.success("No se detectaron filas duplicadas en el archivo.")
+            with col_alert2:
+                columnas_con_nulos = df.columns[df.isnull().any()].tolist()
+                if columnas_con_nulos:
+                    st.warning(f"Columnas con datos faltantes: {', '.join([f'`{c}`' for c in columnas_con_nulos])}")
+                else:
+                    st.success("¡Excelente! Ninguna columna contiene valores nulos.")
             
             # Imprime una línea en la pantalla
             st.markdown("---")
