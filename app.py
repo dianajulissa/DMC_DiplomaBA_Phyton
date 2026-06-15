@@ -141,6 +141,7 @@ elif modulos == "Carga y Perfil del Dataset":
         st.write("**Tipos de datos**")
         st.write(st.session_state.data.dtypes)
 
+        # Columnas y Tipo de Datos
         df_info = pd.DataFrame({
                                     'Tipo de Dato': st.session_state.data.dtypes.astype(str),
                                     'Valores No Nulos': st.session_state.data.count(),
@@ -155,6 +156,8 @@ elif modulos == "Carga y Perfil del Dataset":
         # Estadística descriptiva
         st.write("Estadística descriptiva:")
         st.write(st.session_state.data.describe())
+
+        st.write(df.describe(include='all'))
 
         # Botón para eliminar el dataset cargado
         if st.button("Eliminar dataset cargado"):
