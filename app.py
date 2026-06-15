@@ -1,4 +1,11 @@
 ###########################################################################################################################################
+###########################################################################################################################################
+# INICIO DE CODIGO
+###########################################################################################################################################
+
+###########################################################################################################################################
+# LIBRERIAS
+###########################################################################################################################################
 
 # Librería Streamlit para Crear la Aplicación Web
 import streamlit as st
@@ -10,6 +17,8 @@ import pandas as pd
 import numpy as np
 
 ###########################################################################################################################################
+# DATOS DE SESION
+###########################################################################################################################################
 
 # Almacenamiento del Dataset Cargado
 if "data" not in st.session_state:
@@ -20,6 +29,8 @@ if "nombre_archivo" not in st.session_state:
     st.session_state.nombre_archivo = None
     
 ###########################################################################################################################################
+# TITULO E IMAGENES DE APLICACION WEB
+###########################################################################################################################################
 
 # Título Principal de la Aplicación
 st.title("Diploma Business Analyst")
@@ -28,34 +39,45 @@ st.title("Diploma Business Analyst")
 st.sidebar.title("Parámetros")
 
 # Imagen en la Página Principal de ancho específicado
-st.image("logo_python.png", width = 200)
+st.image("logo_python.png", width = 150)
 
 # Imagen en la Barra Lateral de ancho específicado
-st.sidebar.image("logo_dmc.png", width = 100)
+st.sidebar.image("logo_dmc.png", width = 80)
 
 # Texto para visualizar el Autor del Proyecto
-#st.write("Elaborado por: Diana Córdova")
+st.write("Elaborado por: Diana Córdova")
 
+###########################################################################################################################################
+# MENU DE OPCIONES EN BARRA LATERAL
 ###########################################################################################################################################
 
 # Despliega un Menú de Opciones en la Barra Lateral
 modulos = st.sidebar.selectbox("Seleccione un Módulo", 
-                               ["Home", "Carga y Perfil del Dataset", "Procesamiento de Datos", "Análisis Visual"])
+                               ["Home", 
+                                "Carga y Perfil del Dataset", 
+                                "Procesamiento de Datos", 
+                                "Análisis Visual"])
 
+###########################################################################################################################################
+# MODULO: HOME
 ###########################################################################################################################################
 
 if modulos == "Home":
 
+    # Título de Módulo
     st.subheader("Presentación del Proyecto")
-    
+
+    # Objetivo del Proyecto
     st.write("**Objetivo**")
     st.write("""Construir una aplicación web en Streamlit capaz de procesar cualquiera de los cuatro datasets propuestos 
                 y diferenciando 4 módulos: Home, Carga y Perfil del Dataset, Procesamiento de Datos y Análisis Visual 
                 mediante gráficos interactivos.""")
-    
+
+    # Autor del Proyecto
     st.write("**Elaborado por**")
-    st.write("Diana Córdova Rodríguez")
-        
+    st.write("- Diana Córdova Rodríguez")
+
+    # Descripción de Datasets
     st.write("**Descripción de Datasets**")
     
     st.write("***- AI_Impact_on_Jobs_2030.csv***: ", 
@@ -75,15 +97,19 @@ if modulos == "Home":
         st.success(f"✅ Dataset Cargado: {st.session_state.nombre_archivo}")
         
     else:
-        st.info("Aún no se ha cargado ningún dataset.  \n Diríjase al Módulo **Carga y Perfil del Dataset**")
+        st.info("""🚨 Aún no se ha cargado ningún dataset.  \n 
+                    Diríjase al Módulo **Carga y Perfil del Dataset**""")
 
+###########################################################################################################################################
+# MODULO: CARGA Y PERFIL DE DATOS
 ###########################################################################################################################################
 
 elif modulos == "Carga y Perfil del Dataset":
-    
+
+    # Título de Módulo
     st.subheader("Carga y Perfil del Dataset")
     
-    # Permite la carga de un archivo por parte del usuario
+    # Permite la carga de un archivo por parte del usuario sugiriendo el formato correcto
     archivo = st.file_uploader("Seleccione el Dataset a cargar (archivo Excel o CSV)",
                               type = ["csv", "xlsx"]
                                   )
@@ -127,7 +153,7 @@ elif modulos == "Carga y Perfil del Dataset":
         st.write("**Archivo Cargado**")
         st.write(f"{st.session_state.nombre_archivo}")
 
-        #st.subheader("Vista Previa del Dataset")
+        #st.subheader("Vista Previa del Dataset 🔍")
         st.write("**Vista Previa del Dataset**")
         st.dataframe(st.session_state.data)
 
@@ -175,12 +201,16 @@ elif modulos == "Carga y Perfil del Dataset":
     # Si el usuario no ha cargado ningún archivo, mostramos un mensaje
     else :
         #st.write("Por favor cargue su archivo")
-        st.info("Aún no se ha cargado ningún dataset.  \n Diríjase al Módulo **Carga y Perfil del Dataset**")
+        st.info("""🚨 Aún no se ha cargado ningún dataset.  \n 
+                    Diríjase al Módulo **Carga y Perfil del Dataset**""")
 
+###########################################################################################################################################
+# MODULO: PROCESAMIENTO DE DATOS
 ###########################################################################################################################################
 
 elif modulos == "Procesamiento de Datos":
-    
+
+    # Título del Módulo
     st.subheader("Procesamiento de Datos")
 
     if st.session_state.data is not None:
@@ -313,10 +343,12 @@ elif modulos == "Procesamiento de Datos":
             
     else:
         st.warning(
-            "Primero debe cargar un dataset.  \n"
+            "🚨 Primero debe cargar un dataset.  \n"
             "Diríjase al Módulo **Carga y Perfil del Dataset**."
         )
 
+###########################################################################################################################################
+# MODULO: ANALISIS VISUAL
 ###########################################################################################################################################
 
 elif modulos == "Análisis Visual":
@@ -340,13 +372,11 @@ elif modulos == "Análisis Visual":
         
     else:
         st.warning(
-            "Primero debe cargar un dataset.  \n"
+            "🚨 Primero debe cargar un dataset.  \n"
             "Diríjase al Módulo **Carga y Perfil del Dataset**."
         )
 
 ###########################################################################################################################################
-
-
-
-
+# FIN DE CODIGO
+###########################################################################################################################################
 ###########################################################################################################################################
