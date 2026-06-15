@@ -157,7 +157,7 @@ elif modulos == "Carga y Perfil del Dataset":
         st.write("Estadística descriptiva:")
         st.write(st.session_state.data.describe())
 
-        st.write(df.describe(include='all'))
+        st.write(st.session_state.data.describe(include='all'))
 
         # Botón para eliminar el dataset cargado
         if st.button("Eliminar dataset cargado"):
