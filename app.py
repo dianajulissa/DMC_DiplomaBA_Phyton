@@ -72,7 +72,7 @@ if modulos == "Home":
 
     # Validando la Carga del Dataset
     if st.session_state.data is not None:
-        st.success(f"Dataset Cargado: {st.session_state.nombre_archivo}")
+        st.success(f"✅ Dataset Cargado: {st.session_state.nombre_archivo}")
         
     else:
         st.info("Aún no se ha cargado ningún dataset.  \n Diríjase al Módulo **Carga y Perfil del Dataset**")
@@ -118,7 +118,7 @@ elif modulos == "Carga y Perfil del Dataset":
             st.write("Formato no válido")
         
         # Confirmamos que el archivo fue cargado
-        st.success("Archivo cargado correctamente")
+        st.success("✅ Archivo cargado correctamente")
         
     # Si ya existe un dataset cargado, lo mostramos
     if st.session_state.data is not None:
@@ -222,7 +222,7 @@ elif modulos == "Procesamiento de Datos":
                     
         st.dataframe(st.session_state.data)
 
-        # Columnas y Tipo de Datos
+        # Columnas y Tipo de Datos Convertidos
         st.write("**Columnas y Tipos de datos**")
         df_info = pd.DataFrame({
                                     'Tipo de Dato'    : st.session_state.data.dtypes.astype(str),
@@ -249,6 +249,67 @@ elif modulos == "Procesamiento de Datos":
         with c3:
             st.subheader("Variables Categóricas")
             st.write(cat_cols if cat_cols else "Ninguna")
+            
+        # VALIDANDO LA CALIDAD
+        st.header("Diagnóstico de Calidad de Datos")
+        
+        nulos_totales      = st.session_state.data.isnull().sum().sum()
+        duplicados_totales = st.session_state.data.duplicated().sum()
+        
+        col_val1, col_val2 = st.columns(2)
+        
+        col_val1.metric("Valores Nulos Detectados", nulos_totales, delta=f"-{nulos_totales}" if nulos_totales > 0 else 0, delta_color="inverse")
+        col_val2.metric("Filas Duplicadas", duplicados_totales, delta=f"-{duplicados_totales}" if duplicados_totales > 0 else 0, delta_color="inverse")
+        
+        # Detectar valores no válidos (ej: textos vacíos disfrazados de espacios o "N/A")
+        valores_raros = 0
+        
+        if len(cat_cols) > 0:
+            
+            valores_raros = st.session_state.data[cat_cols].map(lambda x: str(x).strip().lower() in ['n/a', 'na', 'null', 'nan', '']).sum().sum()
+            
+            if valores_raros > 0:
+                st.warning(f"⚠️ Se detectaron **{valores_raros}** valores de texto no válidos (ej: 'N/A', 'null' o celdas vacías con espacios).")
+                
+        # LIMPIEZA Y CONVERSIÓN ---
+        st.header("Panel de Limpieza")
+        
+        df_limpio          = st.session_state.data.copy()
+        
+        limpiar_duplicados = st.checkbox("Eliminar filas duplicadas")
+        limpiar_nulos      = st.selectbox("¿Cómo manejar los valores nulos?", ["Mantenerlos", "Eliminar filas con nulos", "Reemplazar con la Media (Numéricas) / 'Desconocido' (Categóricas)"])
+        forzar_fechas      = st.multiselect("Forzar conversión estricta a Fecha (datetime):", cat_cols)
+    
+        if st.button("Aplicar Limpieza y Conversiones"):
+            
+            for col in forzar_fechas:
+                df_limpio[col] = pd.to_datetime(df_limpio[col], errors='coerce')
+            
+            if limpiar_duplicados:
+                antes = len(df_limpio)
+                df_limpio = df_limpio.drop_duplicates()
+                st.success(f"✅ Se eliminaron {antes - len(df_limpio)} filas duplicadas.")
+                
+            if len(cat_cols) > 0:
+                df_limpio[cat_cols] = df_limpio[cat_cols].replace([r'^\s*$', 'N/A', 'na', 'NaN', 'null'], np.nan, regex=True)
+                
+            if limpiar_nulos == "Eliminar filas con nulos":
+                antes     = len(df_limpio)
+                df_limpio = df_limpio.dropna()
+                st.success(f"✅ Se eliminaron {antes - len(df_limpio)} filas que contenían valores nulos.")
+                
+            elif limpiar_nulos == "Reemplazar con la Media (Numéricas) / 'Desconocido' (Categóricas)":
+                num_actuales = df_limpio.select_dtypes(include=[np.number]).columns
+                cat_actuales = df_limpio.select_dtypes(include=['object', 'category']).columns
+                
+                for col in num_actuales:
+                    df_limpio[col] = df_limpio[col].fillna(df_limpio[col].mean())
+                for col in cat_actuales:
+                    df_limpio[col] = df_limpio[col].fillna("Desconocido")
+                st.success("✅ Valores nulos reemplazados correctamente.")
+                
+            st.subheader("📋 Dataset Limpio Resultante")
+            st.write(df_limpio.head())
             
     else:
         st.warning(
