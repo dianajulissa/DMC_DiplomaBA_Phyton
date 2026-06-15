@@ -149,9 +149,11 @@ elif modulos == "Carga y Perfil del Dataset":
 
         # Botón para eliminar el dataset cargado
         if st.button("Eliminar dataset cargado"):
-            st.session_state.data = None
+            
+            st.session_state.data           = None
             st.session_state.nombre_archivo = None
             st.rerun()
+            st.write("Dataset eliminado")
     
     # Si el usuario no ha cargado ningún archivo, mostramos un mensaje
     else :
