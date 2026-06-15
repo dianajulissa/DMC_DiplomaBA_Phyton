@@ -219,12 +219,26 @@ elif modulos == "Procesamiento de Datos":
                     #    st.write(st.session_state.data[col].dtype)
                     
                     # Limpiar espacios en blanco invisibles del string
-                    col_limpia = st.session_state.data[col].astype(str).str.strip()
+                    #col_limpia = st.session_state.data[col].astype(str).str.strip()
                     # Verificación rápida con Regex si parece fecha antes de convertir
-                    if col_limpia.str.contains(r'\d{4}|\d{2}[-/]\d{2}').any():
-                        st.write("entro2")
-                        # 'coerce' transforma los textos corruptos a NaT para poder cambiar el tipo a datetime
-                        st.session_state.data[col] = pd.to_datetime(st.session_state.data[col], errors='coerce')
+                    #if col_limpia.str.contains(r'\d{4}|\d{2}[-/]\d{2}').any():
+                    #    st.write("entro2")
+                    #    # 'coerce' transforma los textos corruptos a NaT para poder cambiar el tipo a datetime
+                    #    st.session_state.data[col] = pd.to_datetime(st.session_state.data[col], errors='coerce')
+                    
+                    # Limpiar espacios en blanco invisibles del string
+                    col_limpia = st.session_state.data[col].astype(str).str.strip()
+                    
+                    # Expresión regular estricta: La celda debe EMPEZAR (^) y TERMINAR ($) con formato de fecha.
+                    # Detecta: AAAA-MM-DD, DD-MM-AAAA, AAAA/MM/DD, DD/MM/AAAA (y permite celdas vacías o N/A aislados)
+                    patron_fecha_estricto = r'^(?:\d{4}[-/]\d{2}[-/]\d{2}|\d{2}[-/]\d{2}[-/]\d{4})$'
+                    
+                    # Validar que al menos un valor cumpla el patrón estricto
+                    if col_limpia.str.contains(patron_fecha_estricto, regex=True).any():
+                        # Validar también que la columna NO esté llena de texto largo (promedio de caracteres bajo)
+                        # Esto evita falsos positivos si un texto casual coincide por error
+                        if col_limpia.str.len().mean() < 15:
+                            st.session_state.data[col] = pd.to_datetime(st.session_state.data[col], errors='coerce')
                 
                 except:
                     pass
