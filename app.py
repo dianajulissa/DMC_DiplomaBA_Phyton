@@ -267,7 +267,7 @@ elif modulos == "Procesamiento de Datos":
                                 })
         st.write(df_info)
         
-        # Clasificar según el tipo de dato real
+        # Clasificar según Tipo de Dato
         num_cols  = st.session_state.data.select_dtypes(include=[np.number]).columns.tolist()
         date_cols = st.session_state.data.select_dtypes(include=['datetime64', 'datetime']).columns.tolist()
         cat_cols  = st.session_state.data.select_dtypes(include=['object', 'category']).columns.tolist()
@@ -275,23 +275,35 @@ elif modulos == "Procesamiento de Datos":
         # Variables Numéricas
         st.write("**Variables Numéricas**")
         st.write(num_cols if num_cols else "Ninguna")
+
+        # Variables Tipo Fecha
+        st.write("Variables Tipo Fecha")
+        st.write(date_cols if date_cols else "Ninguna")
+
+        # Variables Categóricas
+        st.write("Variables Categóricas")
+        st.write(cat_cols if cat_cols else "Ninguna")
         
         # Mostrar clasificación en columnas visuales
-        c1, c2, c3 = st.columns(3)
-        with c1:
-            st.subheader("Variables Numéricas")
-            st.write(num_cols if num_cols else "Ninguna")
-            
-        with c2:
-            st.subheader("Variables Tipo Fecha")
-            st.write(date_cols if date_cols else "Ninguna")
-            
-        with c3:
-            st.subheader("Variables Categóricas")
-            st.write(cat_cols if cat_cols else "Ninguna")
-            
+        #c1, c2, c3 = st.columns(3)
+        #with c1:
+        #    st.subheader("Variables Numéricas")
+        #    st.write(num_cols if num_cols else "Ninguna")
+        #    
+        #with c2:
+        #    st.subheader("Variables Tipo Fecha")
+        #    st.write(date_cols if date_cols else "Ninguna")
+        #    
+        #with c3:
+        #    st.subheader("Variables Categóricas")
+        #    st.write(cat_cols if cat_cols else "Ninguna")
+
+        #----------------------------------------------------------------------------------------------------------------------------------
         # VALIDANDO LA CALIDAD
-        st.header("Diagnóstico de Calidad de Datos")
+        #----------------------------------------------------------------------------------------------------------------------------------
+        
+        #st.header("Diagnóstico de Calidad de Datos")
+        st.write("Diagnóstico de Calidad de Datos")
         
         nulos_totales      = st.session_state.data.isnull().sum().sum()
         duplicados_totales = st.session_state.data.duplicated().sum()
@@ -310,9 +322,13 @@ elif modulos == "Procesamiento de Datos":
             
             if valores_raros > 0:
                 st.warning(f"⚠️ Se detectaron **{valores_raros}** valores de texto no válidos (ej: 'N/A', 'null' o celdas vacías con espacios).")
-                
-        # LIMPIEZA Y CONVERSIÓN ---
-        st.header("Panel de Limpieza")
+
+        #----------------------------------------------------------------------------------------------------------------------------------
+        # LIMPIEZA Y CONVERSIÓN
+        #----------------------------------------------------------------------------------------------------------------------------------
+        
+        #st.header("Panel de Limpieza")
+        st.write("Panel de Limpieza")
         
         df_limpio          = st.session_state.data.copy()
         
