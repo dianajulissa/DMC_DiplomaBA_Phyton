@@ -130,17 +130,24 @@ elif modulos == "Carga y Perfil del Dataset":
         st.write("**Dimensiones del Dataset**")
 
         # Número de filas y columnas
-        st.write("Filas:", st.session_state.data.shape[0])
-        st.write("Columnas:", st.session_state.data.shape[1])
+        st.write("- Filas:", st.session_state.data.shape[0])
+        st.write("- Columnas:", st.session_state.data.shape[1])
 
         # Nombres de columnas
-        st.write("**Columnas del dataset**")
+        st.write("**Columnas del Dataset**")
         st.write(st.session_state.data.columns.tolist())
 
         # Tipos de datos
         st.write("**Tipos de datos**")
         st.write(st.session_state.data.dtypes)
 
+        df_info = pd.DataFrame({
+                                    'Tipo de Dato': st.session_state.data.dtypes.astype(str),
+                                    'Valores No Nulos': st.session_state.data.count(),
+                                    'Valores Nulos': st.session_state.data.isnull().sum()
+                                })
+        st.write(df_info)
+    
         # Valores nulos
         st.write("Valores nulos por columna:")
         st.write(st.session_state.data.isnull().sum())
