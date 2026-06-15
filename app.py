@@ -221,17 +221,17 @@ elif modulos == "Procesamiento de Datos":
     
         data = st.session_state.data
         
-        st.write("Dataset disponible para el procesamiento:")
+        st.write("**Dataset inicial disponible para el procesamiento:**")
         st.dataframe(data)
 
         #st.write("Valores nulos por columna:")
         #st.write(data.isnull().sum())
 
         #----------------------------------------------------------------------------------------------------------------------------------
-        # DETECCION DE TIPO DE VARIABLES: Numéricas, fechas, categóricas
+        # DETECCION DE TIPO DE VARIABLES
         #----------------------------------------------------------------------------------------------------------------------------------
         
-        st.write("**Detección de variables**")
+        st.write("**Dataset luego de la detección de variables tipo Fecha**")
         
         # Conversión automática de las columnas de texto que parecen fechas
         for col in st.session_state.data.columns:
@@ -259,7 +259,7 @@ elif modulos == "Procesamiento de Datos":
         st.dataframe(st.session_state.data)
 
         # Columnas y Tipo de Datos Convertidos
-        st.write("**Columnas y Tipos de Datos Después de Conversión**")
+        st.write("**Columnas y Tipos de Datos después de Conversión**")
         df_info = pd.DataFrame({
                                     'Tipo de Dato'    : st.session_state.data.dtypes.astype(str),
                                     'Valores No Nulos': st.session_state.data.count(),
@@ -364,7 +364,7 @@ elif modulos == "Procesamiento de Datos":
                     df_limpio[col] = df_limpio[col].fillna("Desconocido")
                 st.success("✅ Valores nulos reemplazados correctamente.")
                 
-            st.subheader("📋 Dataset Limpio Resultante")
+            st.write("📋 **Dataset Limpio Resultante**")
             st.write(df_limpio.head())
 
         st.info("Diríjase al Módulo **Análisis Visual** para graficar el dataset.")
@@ -397,7 +397,42 @@ elif modulos == "Análisis Visual":
         lista_columna_categorica = data.select_dtypes(include=["object", "category"]).columns.tolist()
         
         variable_categorica      = st.selectbox("Seleccione la columna categórica", lista_columna_categorica)
+
+        #----------------------------------------------------------------------------------------------------------------------------------
+        # Creación de Tabs
+        #----------------------------------------------------------------------------------------------------------------------------------
         
+        tab1, tab2, tab3, tab4, tab5 = st.tabs(["Resumen", 
+                                                "Análisis Univariado", 
+                                                "Análisis Bivariado",
+                                                "Análisis Multivariado",
+                                                "Análisis Temporal",
+                                                "Insights"])
+
+        #----------------------------------------------------------------------------------------------------------------------------------
+        # Resumen
+        #----------------------------------------------------------------------------------------------------------------------------------
+        
+        with tab1:
+            st.header("Resumen")
+
+        with tab1:
+            st.header("Análisis Univariado") 
+
+        with tab1:
+            st.header("Análisis Bivariado")
+
+        with tab1:
+            st.header("Análisis Multivariado")
+
+        with tab1:
+            st.header("Análisis Temporal")
+
+        with tab1:
+            st.header("Insights")
+
+
+    
     else:
         st.warning(
             "🚨 Primero debe cargar un dataset.  \n"
