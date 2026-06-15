@@ -303,7 +303,7 @@ elif modulos == "Procesamiento de Datos":
         #----------------------------------------------------------------------------------------------------------------------------------
         
         #st.header("Diagnóstico de Calidad de Datos")
-        st.write("Diagnóstico de Calidad de Datos")
+        st.write("**Diagnóstico de Calidad de Datos**")
         
         nulos_totales      = st.session_state.data.isnull().sum().sum()
         duplicados_totales = st.session_state.data.duplicated().sum()
@@ -328,7 +328,7 @@ elif modulos == "Procesamiento de Datos":
         #----------------------------------------------------------------------------------------------------------------------------------
         
         #st.header("Panel de Limpieza")
-        st.write("Panel de Limpieza")
+        st.write("**Panel de Limpieza**")
         
         df_limpio          = st.session_state.data.copy()
         
@@ -366,6 +366,8 @@ elif modulos == "Procesamiento de Datos":
                 
             st.subheader("📋 Dataset Limpio Resultante")
             st.write(df_limpio.head())
+
+        st.info("Diríjase al Módulo **Análisis Visual** para graficar el dataset.")
             
     else:
         st.warning(
