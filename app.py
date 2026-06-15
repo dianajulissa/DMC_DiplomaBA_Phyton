@@ -445,7 +445,7 @@ elif modulos == "Análisis Visual":
                           delta="Acción requerida" if duplicados_totales > 0 else "Limpio", 
                           delta_color="inverse" if duplicados_totales > 0 else "normal")
 
-            -- Imprime una línea en la pantalla
+            # Imprime una línea en la pantalla
             st.markdown("---")
         
             st.write("**Tabla de Dimensiones**")
