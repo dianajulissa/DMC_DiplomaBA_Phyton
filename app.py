@@ -458,9 +458,31 @@ elif modulos == "Análisis Visual":
             
             st.subheader("Visualizando los 10 Primeros Registros")
             st.dataframe(data.head(10), use_container_width=True)
-        
-            st.write("**Tipos de Datos**")
-            st.write("**Nulos**")
+
+            # Imprime una línea en la pantalla
+            st.markdown("---")
+            
+            st.write("**Tipos de Datos y Nulos por Columna**")
+
+            resumen_columnas = pd.DataFrame({
+                "Tipo de Dato": data.dtypes.astype(str),              # <- Muestra Tipos de Datos
+                "Valores No Nulos": data.count(),
+                "Valores Nulos (NaN)": data.isnull().sum(),           # <- Muestra Nulos detallados
+                "% de Nulos por Columna": (data.isnull().sum() / len(data) * 100).round(2).astype(str) + "%"
+            })
+            st.dataframe(resumen_columnas, use_container_width=True)
+
+            resumen_columnas = pd.DataFrame({
+                "Tipo de Dato": df.dtypes.astype(str),              # <- Muestra Tipos de Datos
+                "Valores No Nulos": df.count(),
+                "Valores Nulos (NaN)": df.isnull().sum(),           # <- Muestra Nulos detallados
+                "% de Nulos por Columna": (df.isnull().sum() / len(df) * 100).round(2).astype(str) + "%"
+            })
+            st.dataframe(resumen_columnas, use_container_width=True)
+            
+            # Imprime una línea en la pantalla
+            st.markdown("---")
+            
             st.write("*Resumen Estadístico**")
             
         #----------------------------------------------------------------------------------------------------------------------------------
