@@ -6,6 +6,9 @@ import streamlit as st
 # Librería Pandas para Leer Archivos CSV y Excel
 import pandas as pd
 
+# Librería para Cálculo Numérico y Análisis de Datos
+import numpy as np
+
 ###########################################################################################################################################
 
 # Almacenamiento del Dataset Cargado
