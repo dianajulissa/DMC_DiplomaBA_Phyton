@@ -150,8 +150,9 @@ elif modulos == "Carga y Perfil del Dataset":
     if st.session_state.data is not None:
 
         #st.write(f"Archivo actual: **{st.session_state.nombre_archivo}**")
-        st.write("**Archivo Cargado**")
-        st.write(f"{st.session_state.nombre_archivo}")
+        #st.write("**Archivo Cargado**")
+        #st.write(f"{st.session_state.nombre_archivo}")
+        st.success(f"✅ Dataset Cargado:  \n {st.session_state.nombre_archivo}")
 
         #st.subheader("Vista Previa del Dataset 🔍")
         st.write("**Vista Previa del Dataset**")
