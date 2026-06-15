@@ -414,21 +414,52 @@ elif modulos == "Análisis Visual":
         #----------------------------------------------------------------------------------------------------------------------------------
         
         with tab1:
+            
             st.header("Resumen")
 
+            st.write("**Indicadores Principales**")
+
+            # Cálculos matemáticos iniciales
+            # Filas y Columnas
+            filas, columnas    = data.shape
+            # Cálculo de nulos globales
+            nulos_totales      = data.isnull().sum().sum()
+            # Cálculo de duplicados globales
+            duplicados_totales = data.duplicated().sum()
+            celdas_totales     = data.size
+            porcentaje_nulos   = (nulos_totales / celdas_totales) * 100 if celdas_totales > 0 else 0
+    
+            st.write("**Tabla de Dimensiones**")
+            st.write("**Tipos de Datos**")
+            st.write("**Nulos**")
+            st.write("*Resumen Estadístico**")
+            
         #----------------------------------------------------------------------------------------------------------------------------------
         # Análisis Univariado
         #----------------------------------------------------------------------------------------------------------------------------------
         
         with tab2:
+            
             st.header("Análisis Univariado") 
+
+            st.write("**Histogramas**")
+            st.write("**Boxplots**")
+            st.write("**Conteo de Categorías**")
+            st.write("**Proporciones**")
+            st.write("*Distribución de Variables Individuales**")
 
         #----------------------------------------------------------------------------------------------------------------------------------
         # Análisis Bivariado
         #----------------------------------------------------------------------------------------------------------------------------------
 
         with tab3:
+            
             st.header("Análisis Bivariado")
+
+            st.write("**Scatter Plots**")
+            st.write("**Boxplots por Categoría**")
+            st.write("**Barras Agrupadas**")
+            st.write("**Comparación entre Variables Numéricas y Categóricas**")
 
         #----------------------------------------------------------------------------------------------------------------------------------
         # Análisis Multivariado
@@ -437,11 +468,18 @@ elif modulos == "Análisis Visual":
         with tab4:
             st.header("Análisis Multivariado")
 
+            st.write("**Correlación**")
+            st.write("**Headmap**")
+            st.write("**Tipos de Datos**")
+            st.write("**Nulos**")
+            st.write("*Resumen Estadístico**")
+
         #----------------------------------------------------------------------------------------------------------------------------------
         # Análisis Temporal
         #----------------------------------------------------------------------------------------------------------------------------------
 
         with tab5:
+            
             st.header("Análisis Temporal")
 
         #----------------------------------------------------------------------------------------------------------------------------------
