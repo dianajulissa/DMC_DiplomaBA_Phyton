@@ -203,20 +203,28 @@ elif modulos == "Procesamiento de Datos":
             st.write(col)
             st.write(st.session_state.data[col].dtype)
             
-            if st.session_state.data[col].dtype == 'object':
-            #if st.session_state.data[col].dtype == 'str':
+            #if st.session_state.data[col].dtype == 'object':
+            if st.session_state.data[col].dtype == 'str':
                 
                 try:
                     st.write("entro")
                     # Verificación rápida si parece fecha antes de convertir
-                    if st.session_state.data[col].astype(str).str.contains(r'\d{4}|\d{2}[-/]\d{2}').any():
-                        st.write("entro2")
-                        #st.write(pd.to_datetime(st.session_state.data[col]))
+                    #if st.session_state.data[col].astype(str).str.contains(r'\d{4}|\d{2}[-/]\d{2}').any():
+                    #    st.write("entro2")
+                    #    #st.write(pd.to_datetime(st.session_state.data[col]))
                         
-                        st.session_state.data[col] = pd.to_datetime(st.session_state.data[col], errors='ignore')
-                        #st.write(st.session_state.data[col])
-                        #st.write(st.session_state.data)
-                        st.write(st.session_state.data[col].dtype)
+                    #    st.session_state.data[col] = pd.to_datetime(st.session_state.data[col], errors='ignore')
+                    #    #st.write(st.session_state.data[col])
+                    #    #st.write(st.session_state.data)
+                    #    st.write(st.session_state.data[col].dtype)
+                    
+                    # Limpiar espacios en blanco invisibles del string
+                    col_limpia = st.session_state.data[col].astype(str).str.strip()
+                    # Verificación rápida con Regex si parece fecha antes de convertir
+                    if col_limpia.str.contains(r'\d{4}|\d{2}[-/]\d{2}').any():
+                        st.write("entro2")
+                        # 'coerce' transforma los textos corruptos a NaT para poder cambiar el tipo a datetime
+                        st.session_state.data[col] = pd.to_datetime(st.session_state.data[col], errors='coerce')
                 
                 except:
                     pass
