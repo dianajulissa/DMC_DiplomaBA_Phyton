@@ -539,7 +539,7 @@ elif modulos == "Análisis Visual":
                 st.info("No se encontraron variables numéricas en este dataset.")
 
             
-            st.write("**Boxplots (Diagrama de Caja y Bigotes) **")
+            st.write("**Boxplots (Diagrama de Caja y Bigotes)**")
 
             if lista_columna_numerica:
                 
@@ -572,7 +572,7 @@ elif modulos == "Análisis Visual":
 
                 variable_categorica      = st.selectbox("Seleccione la columna categórica a analizar", lista_columna_categorica)
 
-                st.markdown(f"### 🔤 Distribución de: `{var_cat_sel}`")
+                st.markdown(f"### Distribución de: `{variable_categorica}`")
                 
                 # Calcular las tablas de conteo y proporciones reales
                 conteo_valores     = data[variable_categorica].value_counts(dropna=False)
