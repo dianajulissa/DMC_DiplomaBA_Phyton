@@ -516,11 +516,11 @@ elif modulos == "Análisis Visual":
         with tab2:
             
             st.header("Análisis Univariado") 
-
+            
             if lista_columna_numerica:
                 
                 variable_numerica        = st.selectbox("Selecione la columna númerica a analizar", lista_columna_numerica)
-            
+                
                 st.write("**Histogramas (Frecuencias)**")
     
                 # Creación del Histograma interactivo con Plotly
@@ -537,7 +537,9 @@ elif modulos == "Análisis Visual":
 
             else:
                 st.info("No se encontraron variables numéricas en este dataset.")
-
+                
+            #---------------------------------------------------------------------
+            
             st.markdown("---")
             st.write("**Boxplots (Diagrama de Caja y Bigotes)**")
 
@@ -565,14 +567,16 @@ elif modulos == "Análisis Visual":
             #m3.metric("Valor Mínimo", f"{metrics['min']:.2f}")
             #m4.metric("Valor Máximo", f"{metrics['max']:.2f}")
 
+            #---------------------------------------------------------------------
+            
             st.markdown("---")
             st.write("**Conteo de Categorías y Proporciones**")
-
+            
             if lista_columna_categorica:
-
+                
                 variable_categorica      = st.selectbox("Seleccione la columna categórica a analizar", lista_columna_categorica)
-
-                st.markdown(f"# Distribución de: `{variable_categorica}`")
+                
+                st.markdown(f"Distribución de: `{variable_categorica}`")
                 
                 # Calcular las tablas de conteo y proporciones reales
                 conteo_valores     = data[variable_categorica].value_counts(dropna=False)
@@ -600,6 +604,8 @@ elif modulos == "Análisis Visual":
                 fig_bar.update_layout(yaxis={'categoryorder':'total ascending'})
                 st.plotly_chart(fig_bar, use_container_width=True)
 
+                #---------------------------------------------------------------------
+                
                 st.markdown("---")
                 st.write("**Tabla de Proporciones y Frecuencias**")
                 # Mostrar el DataFrame calculado
@@ -608,11 +614,10 @@ elif modulos == "Análisis Visual":
                 # Métrica informativa sobre la diversidad de la variable
                 unicos = data[variable_categorica].nunique()
                 st.info(f"La variable `{variable_categorica}` contiene **{unicos}** categorías o etiquetas únicas.")
-                
+
+            
             else:
                 st.info("No se encontraron variables categóricas en este dataset.")   
-            
-            st.write("*Distribución de Variables Individuales**")
 
         #----------------------------------------------------------------------------------------------------------------------------------
         # Análisis Bivariado
@@ -622,9 +627,59 @@ elif modulos == "Análisis Visual":
             
             st.header("Análisis Bivariado")
 
-            st.write("**Scatter Plots**")
+            #---------------------------------------------------------------------
+            
+            st.markdown("---")
+            st.write("**Scatter Plots (Relación entre Variables Numéricas)**")
+            
+            if len(lista_columna_numerica) >= 2:
+                
+                c1, c2, c3 = st.columns(3)
+                
+                with c1:
+                    eje_x = st.selectbox("Eje X (Numérica):", lista_columna_numerica, key="scat_x")
+                
+                with c2:
+                    eje_y = st.selectbox("Eje Y (Numérica):", lista_columna_numerica, key="scat_y")
+                
+                with c3:
+                    # Opcional: Agregar una tercera dimensión de color (categórica) si existe
+                    color_scat = st.selectbox("Color por (Opcional - Categórica):", ["Ninguno"] + lista_columna_categorica, key="scat_col")
+                
+                # Configurar el parámetro de color de Plotly
+                color_param = None if color_scat == "Ninguno" else color_scat
+                
+                st.write(f"Gráfico de Dispersión: `{eje_y}` vs `{eje_x}`")
+                
+                fig_scatter = px.scatter(
+                    data, 
+                    x         = eje_x, 
+                    y         = eje_y, 
+                    color     = color_param,
+                    trendline = "ols" if color_param is None else None, # Línea de tendencia automática si no hay color secundario
+                    title     = f"Dispersión de {eje_y} en función de {eje_x}",
+                    labels    = {eje_x: eje_x, eje_y: eje_y},
+                    template  = "plotly_white"
+                )
+                
+                st.plotly_chart(fig_scatter, use_container_width=True)
+                
+            else:
+                st.info("Se necesitan al menos **2 variables numéricas** para generar un Scatter Plot.")
+                
+            #---------------------------------------------------------------------
+            
+            st.markdown("---")
             st.write("**Boxplots por Categoría**")
+
+            #---------------------------------------------------------------------
+            
+            st.markdown("---")
             st.write("**Barras Agrupadas**")
+
+            #---------------------------------------------------------------------
+            
+            st.markdown("---")
             st.write("**Comparación entre Variables Numéricas y Categóricas**")
 
         #----------------------------------------------------------------------------------------------------------------------------------
@@ -632,14 +687,35 @@ elif modulos == "Análisis Visual":
         #----------------------------------------------------------------------------------------------------------------------------------
 
         with tab4:
+
+            st.markdown("---")
             st.header("Análisis Multivariado")
+            
+            #---------------------------------------------------------------------
 
+            st.markdown("---")
             st.write("**Correlación**")
+            
+            #---------------------------------------------------------------------
+            
+            st.markdown("---")
             st.write("**Headmap**")
+            
+            #---------------------------------------------------------------------
+            
+            st.markdown("---")
             st.write("**Tipos de Datos**")
+            
+            #---------------------------------------------------------------------
+            
+            st.markdown("---")
             st.write("**Nulos**")
-            st.write("*Resumen Estadístico**")
+            
+            #---------------------------------------------------------------------
 
+            st.markdown("---")
+            st.write("*Resumen Estadístico**")
+            
         #----------------------------------------------------------------------------------------------------------------------------------
         # Análisis Temporal
         #----------------------------------------------------------------------------------------------------------------------------------
