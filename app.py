@@ -675,7 +675,7 @@ elif modulos == "Análisis Visual":
             #---------------------------------------------------------------------
             
             st.markdown("---")
-            st.write("**Boxplots por Categoría**")
+            st.write("**Boxplots por Categoría (Comparación Numérica Vs Categórica)**")
 
             if lista_columna_numerica and lista_columna_categorica:
                 c_box1, c_box2 = st.columns(2)
@@ -703,13 +703,49 @@ elif modulos == "Análisis Visual":
             #---------------------------------------------------------------------
             
             st.markdown("---")
-            st.write("**Barras Agrupadas**")
+            st.write("**Barras Agrupadas (Comparación entre Variables Categóricas)**")            
 
+            if len(cat_cols) >= 2:
+                
+                c_bar1, c_bar2 = st.columns(2)
+                with c_bar1:
+                    cat_principal = st.selectbox("Variable Base (Eje X):", variable_categorica) # , key="bar_cat1"
+                with c_bar2:
+                    cat_agrupacion = st.selectbox("Variable de Agrupación (Color Leyenda):", variable_categorica) # , key="bar_cat2"
+                
+                if cat_principal != cat_agrupacion:
+                    st.subheader(f"Conteo Agrupado de `{cat_principal}` y `{cat_agrupacion}`")
+                    
+                    # Calcular la tabla cruzada de frecuencias (Conteo real)
+                    df_cruzado = data.groupby([cat_principal, cat_agrupacion]).size().reset_index(name='Conteo')
+                    
+                    # Crear gráfico de barras agrupadas
+                    fig_bar_agrup = px.bar(
+                        df_cruzado,
+                        x       = cat_principal,
+                        y       = 'Conteo',
+                        color   = cat_agrupacion,
+                        barmode = 'group', # 'group' pone las barras lado a lado, 'stack' las apilaría
+                        title   = f"Distribución cruzada: {cat_principal} agrupado por {cat_agrupacion}",
+                        template = "plotly_white"
+                    )
+                    
+                    st.plotly_chart(fig_bar_agrup, use_container_width=True)
+                    
+                    # Mostrar tabla pivote debajo para análisis numérico exacto
+                    st.markdown("Tabla de Contingencia (Frecuencias Exactas)")
+                    
+                    tabla_contingencia = pd.crosstab(data[cat_principal], data[cat_agrupacion])
+                    
+                    st.dataframe(tabla_contingencia, use_container_width=True)
+                    
+                else:
+                    st.warning("⚠️ Selecciona dos variables categóricas diferentes para poder agruparlas.")
+            else:
+                st.info("Se necesitan al menos **2 variables categóricas** para generar un gráfico de barras agrupadas.")
+                
             #---------------------------------------------------------------------
-            
-            st.markdown("---")
-            st.write("**Comparación entre Variables Numéricas y Categóricas**")
-
+        
         #----------------------------------------------------------------------------------------------------------------------------------
         # Análisis Multivariado
         #----------------------------------------------------------------------------------------------------------------------------------
