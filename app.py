@@ -16,6 +16,9 @@ import pandas as pd
 # Librería para Cálculo Numérico y Análisis de Datos
 import numpy as np
 
+# Librería para Gráficos
+import plotly.express as px
+
 ###########################################################################################################################################
 # DATOS DE SESION
 ###########################################################################################################################################
@@ -392,11 +395,11 @@ elif modulos == "Análisis Visual":
     
         lista_columna_numerica   = data.select_dtypes(include = "number").columns.tolist()
         
-        variable_numerica        = st.selectbox("Selecione la columna númerica", lista_columna_numerica)
+        #variable_numerica        = st.selectbox("Selecione la columna númerica", lista_columna_numerica)
         
         lista_columna_categorica = data.select_dtypes(include=["object", "category"]).columns.tolist()
         
-        variable_categorica      = st.selectbox("Seleccione la columna categórica", lista_columna_categorica)
+        #variable_categorica      = st.selectbox("Seleccione la columna categórica", lista_columna_categorica)
 
         #----------------------------------------------------------------------------------------------------------------------------------
         # Creación de Tabs
@@ -514,7 +517,22 @@ elif modulos == "Análisis Visual":
             
             st.header("Análisis Univariado") 
 
-            st.write("**Histogramas**")
+            variable_numerica        = st.selectbox("Selecione la columna númerica a analizar", lista_columna_numerica)
+        
+            st.write("**Histogramas (Frecuencias)**")
+
+            # Creación del Histograma interactivo con Plotly
+            fig_hist = px.histogram(
+                data, 
+                x        = var_num_sel, 
+                marginal = "rug",  # Añade líneas de densidad en la base
+                title    = f"Histograma de {variable_numerica}",
+                labels   = {variable_numerica: variable_numerica, "count": "Frecuencia"},
+                color_discrete_sequence=["#1f77b4"]
+            )
+            fig_hist.update_layout(bargap=0.05) # Espacio fino entre barras
+            st.plotly_chart(fig_hist, use_container_width=True)
+            
             st.write("**Boxplots**")
             st.write("**Conteo de Categorías**")
             st.write("**Proporciones**")
