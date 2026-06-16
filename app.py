@@ -170,7 +170,6 @@ elif modulos == "Carga y Perfil del Dataset":
         #st.subheader("Perfil Básico del Dataset")
         st.write("**Dimensiones del Dataset**")
 
-        st.markdown("---")
         # Número de filas y columnas
         st.write("- Número de Filas:", st.session_state.data.shape[0])
         st.write("- Número de Columnas:", st.session_state.data.shape[1])
