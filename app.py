@@ -709,9 +709,9 @@ elif modulos == "Análisis Visual":
                 
                 c_bar1, c_bar2 = st.columns(2)
                 with c_bar1:
-                    cat_principal = st.selectbox("Variable Base (Eje X):", variable_categorica) # , key="bar_cat1"
+                    cat_principal = st.selectbox("Variable Base (Eje X):", lista_columna_categorica) # , key="bar_cat1"
                 with c_bar2:
-                    cat_agrupacion = st.selectbox("Variable de Agrupación (Color Leyenda):", variable_categorica) # , key="bar_cat2"
+                    cat_agrupacion = st.selectbox("Variable de Agrupación (Color Leyenda):", lista_columna_categorica) # , key="bar_cat2"
                 
                 if cat_principal != cat_agrupacion:
                     st.subheader(f"Conteo Agrupado de `{cat_principal}` y `{cat_agrupacion}`")
