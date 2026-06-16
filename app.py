@@ -677,6 +677,29 @@ elif modulos == "Análisis Visual":
             st.markdown("---")
             st.write("**Boxplots por Categoría**")
 
+            if lista_columna_numerica and lista_columna_categorica:
+                c_box1, c_box2 = st.columns(2)
+                with c_box1:
+                    variable_numerica = st.selectbox("Variable Numérica (Eje Y):", lista_columna_numerica) # , key="box_num"
+                with c_box2:
+                    variable_categorica = st.selectbox("Variable Categórica (Eje X):", lista_columna_categorica) # , key="box_cat"
+                    
+                st.write(f"Distribución de `{variable_numerica}` segmentada por `{variable_categorica}`")
+                
+                fig_box_cat = px.box(
+                    data,
+                    x        = variable_categorica,
+                    y        = variable_numerica,
+                    color    = variable_categorica, # Colorea cada caja por su categoría correspondientemente
+                    title    = f"Análisis de {variable_numerica} por Categorías de {variable_categorica}",
+                    template = "plotly_white"
+                )
+                # Ordenar el eje X alfabéticamente para mantener limpieza visual
+                fig_box_cat.update_layout(xaxis={'categoryorder':'category ascending'})
+                st.plotly_chart(fig_box_cat, use_container_width=True)
+            else:
+                st.info("Se requiere al menos **1 variable numérica** y **1 variable categórica** para este análisis.")
+
             #---------------------------------------------------------------------
             
             st.markdown("---")
