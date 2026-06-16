@@ -517,25 +517,100 @@ elif modulos == "Análisis Visual":
             
             st.header("Análisis Univariado") 
 
-            variable_numerica        = st.selectbox("Selecione la columna númerica a analizar", lista_columna_numerica)
-        
-            st.write("**Histogramas (Frecuencias)**")
-
-            # Creación del Histograma interactivo con Plotly
-            fig_hist = px.histogram(
-                data, 
-                x        = variable_numerica, 
-                marginal = "rug",  # Añade líneas de densidad en la base
-                title    = f"Histograma de {variable_numerica}",
-                labels   = {variable_numerica: variable_numerica, "count": "Frecuencia"},
-                color_discrete_sequence=["#1f77b4"]
-            )
-            fig_hist.update_layout(bargap=0.05) # Espacio fino entre barras
-            st.plotly_chart(fig_hist, use_container_width=True)
+            if lista_columna_numerica:
+                
+                variable_numerica        = st.selectbox("Selecione la columna númerica a analizar", lista_columna_numerica)
             
-            st.write("**Boxplots**")
-            st.write("**Conteo de Categorías**")
-            st.write("**Proporciones**")
+                st.write("**Histogramas (Frecuencias)**")
+    
+                # Creación del Histograma interactivo con Plotly
+                fig_hist = px.histogram(
+                    data, 
+                    x        = variable_numerica, 
+                    marginal = "rug",  # Añade líneas de densidad en la base
+                    title    = f"Histograma de {variable_numerica}",
+                    labels   = {variable_numerica: variable_numerica, "count": "Frecuencia"},
+                    color_discrete_sequence=["#1f77b4"]
+                )
+                fig_hist.update_layout(bargap=0.05) # Espacio fino entre barras
+                st.plotly_chart(fig_hist, use_container_width=True)
+
+            else:
+                st.info("No se encontraron variables numéricas en este dataset.")
+
+            
+            st.write("**Boxplots (Diagrama de Caja y Bigotes) **")
+
+            if lista_columna_numerica:
+                
+                 # Creación del Boxplot para identificar cuartiles y Outliers
+                fig_box = px.box(
+                    data, 
+                    y      = variable_numerica, 
+                    points = "all",  # Muestra todos los puntos de datos al lado de la caja
+                    title  = f"Diagrama de Caja de {variable_numerica}",
+                    color_discrete_sequence = ["#2ca02c"]
+                )
+                st.plotly_chart(fig_box, use_container_width=True)
+
+            else:
+                st.info("No se encontraron variables numéricas en este dataset.")
+                
+            # Datos estadísticos rápidos de apoyo abajo de los gráficos
+            #st.markdown("#### Resumen de Distribución Numérica")
+            #metrics = data[var_num_sel].describe()
+            #m1, m2, m3, m4 = st.columns(4)
+            #m1.metric("Media Matemática", f"{metrics['mean']:.2f}")
+            #m2.metric("Mediana (Percentil 50)", f"{metrics['50%']:.2f}")
+            #m3.metric("Valor Mínimo", f"{metrics['min']:.2f}")
+            #m4.metric("Valor Máximo", f"{metrics['max']:.2f}")
+
+            
+            st.write("**Conteo de Categorías y Proporciones**")
+
+            if lista_columna_categorica:
+
+                variable_categorica      = st.selectbox("Seleccione la columna categórica a analizar", lista_columna_categorica)
+
+                st.markdown(f"### 🔤 Distribución de: `{var_cat_sel}`")
+                
+                # Calcular las tablas de conteo y proporciones reales
+                conteo_valores     = data[variable_categorica].value_counts(dropna=False)
+                proporcion_valores = data[variable_categorica].value_counts(normalize=True, dropna=False) * 100
+                
+                # Unificar cálculos en una tabla de distribución
+                df_dist_cat = pd.DataFrame({
+                    "Conteo (Frecuencia Absoluta)": conteo_valores,
+                    "Proporción (Frecuencia Relativa %)": proporcion_valores.round(2)
+                }).reset_index().rename(columns={"index": variable_categorica})
+                
+                st.write("**Gráfico de Barras (Conteos)**")
+                
+                # Gráfico interactivo horizontal para facilitar la lectura de categorías largas
+                fig_bar = px.bar(
+                    df_dist_cat,
+                    x           = "Conteo (Frecuencia Absoluta)",
+                    y           = variable_categorica,
+                    orientation = 'h',
+                    title       = f"Conteo de Categorías para {variable_categorica}",
+                    color       = "Conteo (Frecuencia Absoluta)",
+                    color_continuous_scale=px.colors.sequential.Viridis
+                )
+                # Invertir el eje Y para que la categoría con más registros aparezca arriba
+                fig_bar.update_layout(yaxis={'categoryorder':'total ascending'})
+                st.plotly_chart(fig_bar, use_container_width=True)
+                
+                st.write("**Tabla de Proporciones y Frecuencias**")
+                # Mostrar el DataFrame calculado
+                st.dataframe(df_dist_cat, use_container_width=True, hide_index=True)
+                
+                # Métrica informativa sobre la diversidad de la variable
+                unicos = df[variable_categorica].nunique()
+                st.info(f"La variable `{variable_categorica}` contiene **{unicos}** categorías o etiquetas únicas.")
+                
+            else:
+                st.info("No se encontraron variables categóricas en este dataset.")   
+            
             st.write("*Distribución de Variables Individuales**")
 
         #----------------------------------------------------------------------------------------------------------------------------------
