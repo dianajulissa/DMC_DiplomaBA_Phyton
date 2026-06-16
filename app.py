@@ -646,10 +646,10 @@ elif modulos == "Análisis Visual":
                 #    # Opcional: Agregar una tercera dimensión de color (categórica) si existe
                 #    color_scat = data.selectbox("Color por (Opcional - Categórica):", ["Ninguno"] + lista_columna_categorica, key="scat_col")
 
-                eje_x = data.selectbox("Eje X (Numérica):", lista_columna_numerica, key="scat_x")
-                eje_y = data.selectbox("Eje Y (Numérica):", lista_columna_numerica, key="scat_y")
+                eje_x = st.selectbox("Eje X (Numérica):", lista_columna_numerica)# , key="scat_x"
+                eje_y = st.selectbox("Eje Y (Numérica):", lista_columna_numerica) # , key="scat_y"
                 # Opcional: Agregar una tercera dimensión de color (categórica) si existe
-                color_scat = data.selectbox("Color por (Opcional - Categórica):", ["Ninguno"] + lista_columna_categorica, key="scat_col")
+                color_scat = st.selectbox("Color por (Opcional - Categórica):", ["Ninguno"] + lista_columna_categorica) # , key="scat_col"
                 
                 # Configurar el parámetro de color de Plotly
                 color_param = None if color_scat == "Ninguno" else color_scat
