@@ -663,8 +663,7 @@ elif modulos == "Análisis Visual":
                     color     = color_param,
                     trendline = "ols" if color_param is None else None, # Línea de tendencia automática si no hay color secundario
                     title     = f"Dispersión de {eje_y} en función de {eje_x}",
-                    labels    = {eje_x: eje_x, eje_y: eje_y},
-                    template  = "plotly_white"
+                    labels    = {eje_x: eje_x, eje_y: eje_y}#,                template  = "plotly_white"
                 )
                 
                 st.plotly_chart(fig_scatter, use_container_width=True)
