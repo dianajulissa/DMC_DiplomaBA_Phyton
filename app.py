@@ -538,7 +538,7 @@ elif modulos == "Análisis Visual":
             else:
                 st.info("No se encontraron variables numéricas en este dataset.")
 
-            
+            st.markdown("---")
             st.write("**Boxplots (Diagrama de Caja y Bigotes)**")
 
             if lista_columna_numerica:
@@ -565,14 +565,14 @@ elif modulos == "Análisis Visual":
             #m3.metric("Valor Mínimo", f"{metrics['min']:.2f}")
             #m4.metric("Valor Máximo", f"{metrics['max']:.2f}")
 
-            
+            st.markdown("---")
             st.write("**Conteo de Categorías y Proporciones**")
 
             if lista_columna_categorica:
 
                 variable_categorica      = st.selectbox("Seleccione la columna categórica a analizar", lista_columna_categorica)
 
-                st.markdown(f"### Distribución de: `{variable_categorica}`")
+                st.markdown(f"# Distribución de: `{variable_categorica}`")
                 
                 # Calcular las tablas de conteo y proporciones reales
                 conteo_valores     = data[variable_categorica].value_counts(dropna=False)
@@ -599,13 +599,14 @@ elif modulos == "Análisis Visual":
                 # Invertir el eje Y para que la categoría con más registros aparezca arriba
                 fig_bar.update_layout(yaxis={'categoryorder':'total ascending'})
                 st.plotly_chart(fig_bar, use_container_width=True)
-                
+
+                st.markdown("---")
                 st.write("**Tabla de Proporciones y Frecuencias**")
                 # Mostrar el DataFrame calculado
                 st.dataframe(df_dist_cat, use_container_width=True, hide_index=True)
                 
                 # Métrica informativa sobre la diversidad de la variable
-                unicos = df[variable_categorica].nunique()
+                unicos = data[variable_categorica].nunique()
                 st.info(f"La variable `{variable_categorica}` contiene **{unicos}** categorías o etiquetas únicas.")
                 
             else:
