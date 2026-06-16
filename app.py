@@ -71,16 +71,19 @@ if modulos == "Home":
     st.subheader("Presentación del Proyecto")
 
     # Objetivo del Proyecto
+    st.markdown("---")
     st.write("**Objetivo**")
     st.write("""Construir una aplicación web en Streamlit capaz de procesar cualquiera de los cuatro datasets propuestos 
                 y diferenciando 4 módulos: Home, Carga y Perfil del Dataset, Procesamiento de Datos y Análisis Visual 
                 mediante gráficos interactivos.""")
 
     # Autor del Proyecto
+    st.markdown("---")
     st.write("**Elaborado por**")
     st.write("- Diana Córdova Rodríguez")
 
     # Descripción de Datasets
+    st.markdown("---")
     st.write("**Descripción de Datasets**")
     
     st.write("***- AI_Impact_on_Jobs_2030.csv***: ", 
@@ -150,31 +153,37 @@ elif modulos == "Carga y Perfil del Dataset":
         
     # Si ya existe un dataset cargado, lo mostramos
     if st.session_state.data is not None:
-
+        
         #st.write(f"Archivo actual: **{st.session_state.nombre_archivo}**")
         #st.write("**Archivo Cargado**")
         #st.write(f"{st.session_state.nombre_archivo}")
         st.success(f"✅ Dataset Cargado:  \n {st.session_state.nombre_archivo}")
 
+        st.markdown("---")
         #st.subheader("Vista Previa del Dataset 🔍")
         st.write("**Vista Previa del Dataset**")
         st.dataframe(st.session_state.data)
 
+        st.markdown("---")
         #st.subheader("Perfil Básico del Dataset")
         st.write("**Dimensiones del Dataset**")
 
+        st.markdown("---")
         # Número de filas y columnas
         st.write("- Número de Filas:", st.session_state.data.shape[0])
         st.write("- Número de Columnas:", st.session_state.data.shape[1])
 
+        st.markdown("---")
         # Nombres de columnas
         st.write("**Columnas del Dataset**")
         st.write(st.session_state.data.columns.tolist())
 
+        st.markdown("---")
         # Tipos de datos
         #st.write("**Tipos de datos**")
         #st.write(st.session_state.data.dtypes)
 
+        st.markdown("---")
         # Columnas y Tipo de Datos
         st.write("**Columnas y Tipos de datos**")
         df_info = pd.DataFrame({
@@ -188,6 +197,7 @@ elif modulos == "Carga y Perfil del Dataset":
         #st.write("**Valores nulos por columna:**")
         #st.write(st.session_state.data.isnull().sum())
 
+        st.markdown("---")
         # Estadística Descriptiva
         st.write("**Resumen Inicial - Estadística Descriptiva:**")
         st.write(st.session_state.data.describe())
@@ -201,6 +211,7 @@ elif modulos == "Carga y Perfil del Dataset":
             st.rerun()
             st.write("Dataset eliminado")
 
+        st.markdown("---")
         st.info("Diríjase al Módulo **Procesamiento de Datos** para procesar el dataset cargado.")
     
     # Si el usuario no ha cargado ningún archivo, mostramos un mensaje
@@ -223,7 +234,8 @@ elif modulos == "Procesamiento de Datos":
         st.success(f"✅ Dataset Cargado:  \n {st.session_state.nombre_archivo}")
     
         data = st.session_state.data
-        
+
+        st.markdown("---")
         st.write("**Dataset inicial disponible para el procesamiento:**")
         st.dataframe(data)
 
@@ -233,7 +245,8 @@ elif modulos == "Procesamiento de Datos":
         #----------------------------------------------------------------------------------------------------------------------------------
         # DETECCION DE TIPO DE VARIABLES
         #----------------------------------------------------------------------------------------------------------------------------------
-        
+
+        st.markdown("---")
         st.write("**Dataset luego de la detección de variables tipo Fecha**")
         
         # Conversión automática de las columnas de texto que parecen fechas
@@ -304,7 +317,8 @@ elif modulos == "Procesamiento de Datos":
         #----------------------------------------------------------------------------------------------------------------------------------
         # VALIDANDO LA CALIDAD
         #----------------------------------------------------------------------------------------------------------------------------------
-        
+
+        st.markdown("---")
         #st.header("Diagnóstico de Calidad de Datos")
         st.write("**Diagnóstico de Calidad de Datos**")
         
@@ -329,7 +343,8 @@ elif modulos == "Procesamiento de Datos":
         #----------------------------------------------------------------------------------------------------------------------------------
         # LIMPIEZA Y CONVERSIÓN
         #----------------------------------------------------------------------------------------------------------------------------------
-        
+
+        st.markdown("---")
         #st.header("Panel de Limpieza")
         st.write("**Panel de Limpieza**")
         
@@ -387,7 +402,10 @@ elif modulos == "Análisis Visual":
     st.subheader("Análisis Visual")
 
     if st.session_state.data is not None:
-    
+
+        st.success(f"✅ Dataset Cargado:  \n {st.session_state.nombre_archivo}")
+
+        # creando una copia del dataset
         data = st.session_state.data
 
         st.write("Dataset disponible para Análisis Visual:")
@@ -714,7 +732,7 @@ elif modulos == "Análisis Visual":
                     cat_agrupacion = st.selectbox("Variable de Agrupación (Color Leyenda):", lista_columna_categorica) # , key="bar_cat2"
                 
                 if cat_principal != cat_agrupacion:
-                    st.subheader(f"Conteo Agrupado de `{cat_principal}` y `{cat_agrupacion}`")
+                    st.write(f"Conteo Agrupado de `{cat_principal}` y `{cat_agrupacion}`")
                     
                     # Calcular la tabla cruzada de frecuencias (Conteo real)
                     df_cruzado = data.groupby([cat_principal, cat_agrupacion]).size().reset_index(name='Conteo')
