@@ -524,7 +524,7 @@ elif modulos == "Análisis Visual":
             # Creación del Histograma interactivo con Plotly
             fig_hist = px.histogram(
                 data, 
-                x        = var_num_sel, 
+                x        = variable_numerica, 
                 marginal = "rug",  # Añade líneas de densidad en la base
                 title    = f"Histograma de {variable_numerica}",
                 labels   = {variable_numerica: variable_numerica, "count": "Frecuencia"},
