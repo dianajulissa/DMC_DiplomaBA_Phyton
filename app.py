@@ -649,10 +649,10 @@ elif modulos == "Análisis Visual":
                 eje_x = st.selectbox("Eje X (Numérica):", lista_columna_numerica)# , key="scat_x"
                 eje_y = st.selectbox("Eje Y (Numérica):", lista_columna_numerica) # , key="scat_y"
                 # Opcional: Agregar una tercera dimensión de color (categórica) si existe
-                color_scat = st.selectbox("Color por (Opcional - Categórica):", ["Ninguno"] + lista_columna_categorica) # , key="scat_col"
+                #color_scat = st.selectbox("Color por (Opcional - Categórica):", ["Ninguno"] + lista_columna_categorica) # , key="scat_col"
                 
                 # Configurar el parámetro de color de Plotly
-                color_param = None if color_scat == "Ninguno" else color_scat
+                #color_param = None if color_scat == "Ninguno" else color_scat
                 
                 st.write(f"Gráfico de Dispersión: `{eje_y}` vs `{eje_x}`")
                 
@@ -660,10 +660,11 @@ elif modulos == "Análisis Visual":
                     data, 
                     x         = eje_x, 
                     y         = eje_y, 
-                    color     = color_param,
-                    trendline = "ols" if color_param is None else None, # Línea de tendencia automática si no hay color secundario
+                    #color     = color_param,
+                    #trendline = "ols" if color_param is None else None, # Línea de tendencia automática si no hay color secundario
                     title     = f"Dispersión de {eje_y} en función de {eje_x}",
-                    labels    = {eje_x: eje_x, eje_y: eje_y}#,                template  = "plotly_white"
+                    labels    = {eje_x: eje_x, eje_y: eje_y},                
+                    template  = "plotly_white"
                 )
                 
                 st.plotly_chart(fig_scatter, use_container_width=True)
