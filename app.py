@@ -98,6 +98,8 @@ if modulos == "Home":
     st.write("***- Teen_Mental_Health_Dataset.csv***: ",
             "Hábitos digitales, sueño, actividad física, interacción social y variables de bienestar en adolescentes.")
 
+    st.markdown("---")
+    
     # Validando la Carga del Dataset
     if st.session_state.data is not None:
         st.success(f"✅ Dataset Cargado: {st.session_state.nombre_archivo}")
@@ -408,8 +410,8 @@ elif modulos == "Análisis Visual":
         # creando una copia del dataset
         data = st.session_state.data
 
-        st.write("Dataset disponible para Análisis Visual:")
-        st.dataframe(data)
+        #st.write("Dataset disponible para Análisis Visual:")
+        #st.dataframe(data)
     
         lista_columna_numerica   = data.select_dtypes(include = "number").columns.tolist()
         
@@ -477,7 +479,7 @@ elif modulos == "Análisis Visual":
             })
             st.dataframe(df_dimensiones, hide_index=True, use_container_width=True)
             
-            st.subheader("Visualizando los 10 Primeros Registros")
+            st.write("**Visualizando los 10 Primeros Registros**")
             st.dataframe(data.head(10), use_container_width=True)
 
             # Imprime una línea en la pantalla
