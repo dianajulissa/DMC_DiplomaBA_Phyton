@@ -705,7 +705,7 @@ elif modulos == "Análisis Visual":
             st.markdown("---")
             st.write("**Barras Agrupadas (Comparación entre Variables Categóricas)**")            
 
-            if len(cat_cols) >= 2:
+            if len(lista_columna_categorica) >= 2:
                 
                 c_bar1, c_bar2 = st.columns(2)
                 with c_bar1:
