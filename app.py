@@ -179,7 +179,7 @@ elif modulos == "Carga y Perfil del Dataset":
         st.write("**Columnas del Dataset**")
         st.write(st.session_state.data.columns.tolist())
 
-        st.markdown("---")
+        #st.markdown("---")
         # Tipos de datos
         #st.write("**Tipos de datos**")
         #st.write(st.session_state.data.dtypes)
